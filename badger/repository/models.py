@@ -7,13 +7,18 @@ from django.contrib.auth.models import User
 
 class Repository(models.Model):
     name = models.CharField(max_length=100)
-    homepage = models.URLField()
-    git_url = models.CharField(max_length=200)
+    git_url = models.CharField(max_length=200, index=True)
+    html_url = models.URLField(null=True, blank=True)
+    url = models.URLField(null=True, blank=True)
+    language = models.CharField(max_length=100, null=True, blank=True)
 
 class UnknownUser(models.Model):
-    email = models.CharField(max_length=200)
+    email = models.CharField(max_length=200, index=True)
 
 class Contributor(models.Model):
     repository = models.ForeignKey(Repository)
-    contributor = models.ForeignKey(User, null=True, blank=True)
+    user = models.ForeignKey(User, null=True, blank=True)
     unknown_contributor = models.ForeignKey(UnknownUser, null=True, blank=True)
+    addtions = models.IntegerField(default=0, blank=True)
+    remotions = models.IntegerField(default=0, blank=True)
+    commmits = models.models.IntegerField(default=0, blank=True)
