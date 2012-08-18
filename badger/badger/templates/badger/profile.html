@@ -5,6 +5,7 @@
 
 {% block style %}
     <link rel="stylesheet" type="text/css" href="{% static 'badger/css/profile.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'badger/css/badges.css' %}">
 {% endblock %}
 
 {% block header %}
@@ -36,4 +37,32 @@
 {% endblock %}
 
 {% block contents %}
+<div class="badges-section">
+    <div class="container">
+        <ul class="repos">
+            <li>
+                <div class="icon"></div>
+                <div class="name">thumbor</div>
+                <ul class="badge-list">
+                    <li class="newbie-badger" title="this badger is no stranger to git (1 commit in this project)">
+                    </li>
+                    <li class="big-bad-badger" title="who's afraid of this big bad badger? (100+ commits in this project)">
+                    </li>
+                    <li class="commitacula" title="this badger is a creature of the night (most commits in the evening)">
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <div class="icon"></div>
+                <div class="name">pyvows</div>
+                <ul class="badge-list">
+                    <li class="newbie-badger" title="this badger is no stranger to git (1 commit in this project)">
+                    </li>
+                    <li class="commitacula" title="this badger is a creature of the night (most commits in the evening)">
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
 {% endblock %}
