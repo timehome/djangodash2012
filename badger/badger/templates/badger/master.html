@@ -1,0 +1,25 @@
+{% load static from staticfiles %}
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    <title>badger - be awesome and get badges{% block title %}{% endblock %}</title>
+
+    <link rel="stylesheet" type="text/css" href="{% static 'badger/css/reset.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'badger/css/style.css' %}">
+</head>
+<body>
+    <header>
+        <div class="top-row"></div>
+        {% block header %}
+        {% endblock %}
+    </header>
+    {% block contents %}
+    {% endblock %}
+
+    <footer>
+        <h4>badger was made by <a href=https://github.com/timehome"">timehome</a> for the <a href="http://djangodash.com/">django dash 2012</a></h4>
+        <h5>badger is registered under the <a href="http://en.wikipedia.org/wiki/MIT_License">MIT License</a> and is <a href="http://en.wikipedia.org/wiki/Free_and_open-source_software">FOSS</a></h5>
+    </footer>
+</body>
+</html>
