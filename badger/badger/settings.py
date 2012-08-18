@@ -114,7 +114,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'social_auth',
-    'badger'
+    'badger',
+    'user_profile'
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
@@ -129,6 +130,7 @@ AUTHENTICATION_BACKENDS = (
 LOGIN_URL          = '/'
 LOGIN_REDIRECT_URL = '/profile'
 LOGIN_ERROR_URL    = '/'
+SOCIAL_AUTH_SESSION_EXPIRATION = False
 
 TEMPLATE_CONTEXT_PROCESSORS = (
     'social_auth.context_processors.social_auth_by_name_backends',
@@ -136,6 +138,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'social_auth.context_processors.social_auth_by_type_backends',
     'social_auth.context_processors.social_auth_login_redirect',
 )
+
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
 # the site admins on every HTTP 500 error when DEBUG=False.
