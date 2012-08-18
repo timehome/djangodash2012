@@ -1,7 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import re
 import logging
+
+from pygithub3 import Github
 
 
 BADGES_CLASSES = []
@@ -65,6 +68,10 @@ class RepositoryProcessor(object):
 class RepositoryWorker(object):
 
     @classmethod
-    def perform(cls, repository_name, repository_url, username, token):
-        pass
+    def perform(cls, repository, token, email):
+        import ipdb;ipdb.set_trace()
+        
+        all_match, username, repo_name = re.match('github.com/([\w_]+)/([\w_]+)', repository.url).groups()
+        gh = Github(user=username, token=token)
+        repository = gh.repos.get(user=username, repo=repository_name)
 
