@@ -1,0 +1,40 @@
+{
+    "git_url": "",
+    "github_url": "https://github.com/globocom/thumbor",
+    "url": "https://github.com/globocom/thumbor/wiki",
+    "name": "thumbor",
+    "description": "thumbor is an open-source photo thumbnail service by globo.com",
+    "total_commits": 3894,
+    "total_aditions": 82929,
+    "total_deletions": 92849,
+    "collaborattors": [
+        { 
+            "email": "rafael@caricio.com",
+            "badges": [
+                {
+                    "badge_slug": "newbie_badger"
+                },
+                {
+                    "badge_slug": "swarming_level_1"
+                }
+            ]
+        },
+        { 
+            "email": "guivideoblowjob@gmail.com",
+            "badges": [
+                {
+                    "badge_slug": "newbie_badger"
+                },
+                {
+                    "badge_slug": "swarming_level_1"
+                },
+                {
+                    "badge_slug": "swarming_level_2"
+                },
+                {
+                    "badge_slug": "commitacula"
+                }
+            ]
+        }
+    ]
+}
