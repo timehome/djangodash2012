@@ -21,4 +21,4 @@ class Contributor(models.Model):
     unknown_contributor = models.ForeignKey(UnknownUser, null=True, blank=True)
     addtions = models.IntegerField(default=0, blank=True)
     remotions = models.IntegerField(default=0, blank=True)
-    commmits = models.models.IntegerField(default=0, blank=True)
+    commmits = models.IntegerField(default=0, blank=True)
