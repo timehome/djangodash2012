@@ -23,5 +23,6 @@ class BadgeWorkerTestCase(unittest.TestCase):
 
         self.assertEqual(Repository.objects.count(), 1)
         self.assertEqual(UnknownUser.objects.count(), 3)
+        self.assertEqual(Contributor.objects.count(), 3)
 
 

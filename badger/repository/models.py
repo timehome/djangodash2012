@@ -21,4 +21,4 @@ class Contributor(models.Model):
     unknown_contributor = models.ForeignKey(UnknownUser, null=True, blank=True)
     added_lines = models.IntegerField(default=0, blank=True)
     removed_lines = models.IntegerField(default=0, blank=True)
-    commmits = models.IntegerField(default=0, blank=True)
+    total_commits = models.IntegerField(default=0, blank=True)

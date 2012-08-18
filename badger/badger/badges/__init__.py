@@ -22,6 +22,7 @@ def import_class(name):
 
 def initialize_badge_classes():
     from django.conf import settings
+    BADGES_CLASSES.append(CommitCount)
     for badge_class_name in getattr(settings, 'BADGES_ENABLED', []):
         try:
             BADGES_CLASSES.append(import_class(badge_class_name))
@@ -67,6 +68,20 @@ class BigBadBadge(Badge):
     def award_this(self):
         return self.count >= 100
 
+class CommitCount:
+
+    def __init__(self, email, *args, **kw):
+        self.user_email = email
+        self.count = 0
+
+    def process_commit(self, commit, commit_date):
+        if commit.author.email == self.user_email:
+            self.count += 1
+
+    def update_data(self):
+        return {'total_commits': self.count}
+
+
 
 from datetime import datetime
 from pygit2 import Repository as GitRepository
@@ -97,14 +112,17 @@ class RepositoryProcessor(object):
             user = {"email": user_email, "badges": []}
             result.append(user)
             for badge in badges:
-                if badge.award_this():
-                    user['badges'].append({"badge_slug": badge.slug})
+                if isinstance(badge, Badge):
+                    if badge.award_this():
+                        user['badges'].append({"badge_slug": badge.slug})
+                else:
+                    user.update(badge.update_data())
             user.update(count_modifications_by_user(user_email, self.repo.path))
         return result
 
 
 import json
-from os import remove
+import shutil
 from os.path import exists
 import subprocess
 
@@ -140,53 +158,56 @@ class RepositoryWorker(object):
     @classmethod
     def perform(cls, user):
         temp_dir = None
-        #try:
-
-        username, repo_name = re.search('github\.com/([\w_]+)/([\w_]+)', user["repo"]["url"]).groups()
-
         try:
-            db_repo = Repository.objects.get(git_url=user['repo']['url'])
-        except Repository.DoesNotExist:
-            gh = Github() #login=user['email'], token=user['token'])
-            repo = gh.repos.get(user=username, repo=repo_name)
 
-            db_repo = Repository(name=repo.name,
-                    git_url=repo.git_url,
-                    html_url=repo.html_url,
-                    url=repo.url,
-                    language=repo.language)
+            username, repo_name = re.search('github\.com/([\w_]+)/([\w_]+)', user["repo"]["url"]).groups()
 
-            db_repo.save()
+            try:
+                db_repo = Repository.objects.get(git_url=user['repo']['url'])
+            except Repository.DoesNotExist:
+                gh = Github() #login=user['email'], token=user['token'])
+                repo = gh.repos.get(user=username, repo=repo_name)
 
-        temp_dir = tempfile.mkdtemp()
-        processor = RepositoryProcessor(clone_repo(user["repo"]["url"], temp_dir))
-        response = processor.process()
+                db_repo = Repository(name=repo.name,
+                        git_url=repo.git_url,
+                        html_url=repo.html_url,
+                        url=repo.url,
+                        language=repo.language)
 
-        with transaction.commit_on_success():
-            for unknown_contributor in response:
-                uku, created = UnknownUser.objects.get_or_create(email=unknown_contributor['email'], defaults={
-                    "email": unknown_contributor['email']
-                })
+                db_repo.save()
 
-                db_user = None
-                try:
-                    db_user = User.objects.get(email=unknown_contributor['email'])
-                except:
-                    pass
+            temp_dir = tempfile.mkdtemp()
+            processor = RepositoryProcessor(clone_repo(user["repo"]["url"], temp_dir))
+            response = processor.process()
 
-                contributor, created = Contributor.objects.get_or_create(unknown_contributor=uku, defaults={
-                    "user": db_user,
-                    "unknown_contributor": uku,
-                    "repository": db_repo,
-                    "added_lines": unknown_contributor['added_lines'],
-                    "removed_lines": unknown_contributor['removed_lines']
-                })
-
-                for badge in unknown_contributor['badges']:
-                    ContributorAchievement.objects.get_or_create(achievement=badge['badge_slug'],
-                        contributor=contributor, defaults = {
-                        'achievement': badge['badge_slug'],
-                        'contributor': contributor
+            with transaction.commit_on_success():
+                for unknown_contributor in response:
+                    uku, created = UnknownUser.objects.get_or_create(email=unknown_contributor['email'], defaults={
+                        "email": unknown_contributor['email']
                     })
 
+                    db_user = None
+                    try:
+                        db_user = User.objects.get(email=unknown_contributor['email'])
+                    except:
+                        pass
+
+                    contributor, created = Contributor.objects.get_or_create(unknown_contributor=uku, defaults={
+                        "user": db_user,
+                        "unknown_contributor": uku,
+                        "repository": db_repo,
+                        "added_lines": unknown_contributor['added_lines'],
+                        "removed_lines": unknown_contributor['removed_lines'],
+                        "total_commits": unknown_contributor['total_commits']
+                    })
+
+                    for badge in unknown_contributor['badges']:
+                        ContributorAchievement.objects.get_or_create(achievement=badge['badge_slug'],
+                            contributor=contributor, defaults = {
+                            'achievement': badge['badge_slug'],
+                            'contributor': contributor
+                        })
+        finally:
+            if exists(temp_dir):
+                shutil.rmtree(temp_dir)
 
