@@ -9,11 +9,14 @@
 {% endblock %}
 
 {% block header %}
-    <div class="logoff">
-        <div class="container">
-            <a href="/auth/logout">logout</a>
+    
+    {% if user.is_authenticated %}
+        <div class="logoff">
+            <div class="container">
+                <a href="/auth/disconnect/github">logout</a>
+            </div>
         </div>
-    </div>
+    {% endif %}
     <div class="container">
         <div class="photo">
             <img src="{{ object.thumb_url_200_pixels }}" />

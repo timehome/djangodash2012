@@ -12,8 +12,8 @@ class Repository(models.Model):
 
 class UnknownUser(models.Model):
     email = models.CharField(max_length=200)
-    real_user = models.ForeignKey(User, null=True, blank=True)
 
-class ProcessedUsers(models.Model):
-    unknown_user = models.ForeignKey(UnknownUser)
-    repository = models.ForeignKey(Repository, related_name='processed_users')
+class Contributor(models.Model):
+    repository = models.ForeignKey(Repository)
+    contributor = models.ForeignKey(User, null=True, blank=True)
+    unknown_contributor = models.ForeignKey(UnknownUser, null=True, blank=True)
