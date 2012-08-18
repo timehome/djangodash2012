@@ -1,6 +1,7 @@
 from django.views.generic import TemplateView
 from user_profile.models import BadgerProfile
 from repository.models import Repository
+
 class IndexView(TemplateView):
     template_name = "badger/index.html"
 
