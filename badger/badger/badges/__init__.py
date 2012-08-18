@@ -35,7 +35,7 @@ class Badge(object):
     def __init__(self, user_email):
         self.user_email = user_email
 
-    def process_commit(self, commit, commit_date, lines_added, lines_removed):
+    def process_commit(self, commit, commit_date):
         pass
 
     def award_this(self):
@@ -45,7 +45,7 @@ class Badge(object):
 class NewbieBadge(Badge):
     slug = 'newbie_badge'
 
-    def process_commit(self, commit, commit_date, lines_added, lines_removed):
+    def process_commit(self, commit, commit_date):
         if commit.author.email == self.user_email:
             self.has_this_badge = True
 
@@ -60,13 +60,12 @@ class BigBadBadge(Badge):
         super(BigBadBadge, self).__init__(*args, **kw)
         self.count = 0
 
-    def process_commit(self, commit, commit_date, lines_added, lines_removed):
+    def process_commit(self, commit, commit_date):
         if commit.author.email == self.user_email:
             self.count += 1
 
     def award_this(self):
         return self.count >= 100
-
 
 
 from datetime import datetime
@@ -90,19 +89,9 @@ class RepositoryProcessor(object):
 
     def process(self):
         # returns the json of the collaborators
-        last_commit = None
         for commit in [c for c in self.repo.walk(self.repo.head.oid, GIT_SORT_TIME)][::-1]:
-            lines_added = 0
-            lines_removed = 0
-            if last_commit:
-                # make a diff and count lines
-                pass
             for badge in self.get_bages_processors_for_user(commit.author.email):
-                badge.process_commit(commit,
-                        datetime.fromtimestamp(commit.commit_time),
-                        lines_added,
-                        lines_removed)
-            last_commit = commit
+                badge.process_commit(commit, datetime.fromtimestamp(commit.commit_time))
         result = []
         for user_email, badges in self.users.items():
             user = {"email": user_email, "badges": []}
@@ -110,9 +99,11 @@ class RepositoryProcessor(object):
             for badge in badges:
                 if badge.award_this():
                     user['badges'].append({"badge_slug": badge.slug})
+            user.update(count_modifications_by_user(user_email, self.repo.path))
         return result
 
 
+import json
 from os import remove
 from os.path import exists
 import subprocess
@@ -128,6 +119,15 @@ def clone_repo(git_repo_url, directory):
     else:
         logging.info('Cloned repository %s into %s ...' % (git_repo_url, directory))
         return directory
+
+def count_modifications_by_user(email, directory):
+    directory = directory.replace('.git/', '')
+    command = """cd %s && git log --author="%s" --pretty=tformat: --numstat | awk '{ add += $1 ; subs += $2 ; loc += $1 - $2 } END { printf "{\"added_lines\":%%s,\"removed_lines\":%%s,\"total_lines\":%%s}\n",add,subs,loc }'""" % (directory, email)
+    result = {"added_lines":0,"removed_lines":0,"total_lines":0}
+    try:
+        result = json.loads(subprocess.check_output(command))
+    finally:
+        return result
 
 
 class RepositoryWorker(object):
