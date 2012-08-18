@@ -115,7 +115,8 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'social_auth',
     'badger',
-    'user_profile'
+    'user_profile',
+    'repository'
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:

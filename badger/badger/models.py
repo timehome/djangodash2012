@@ -11,8 +11,6 @@ def user_update_callback(sender, user, response, details, **kwargs):
     profile.extra_data = response
     profile.save()
 
-    import pdb;pdb.set_trace()
-
     user = {'email':response['email'], 'token': response['access_token']}
     gh = Github(login=user['email'], token=user['token'])
 

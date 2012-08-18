@@ -1,5 +1,6 @@
 from django.views.generic import TemplateView
 from user_profile.models import BadgerProfile
+from repository.models import Repository
 class IndexView(TemplateView):
     template_name = "badger/index.html"
 
@@ -7,5 +8,6 @@ class IndexView(TemplateView):
         context = super(IndexView, self).get_context_data(**kwargs)
         context['users'] = BadgerProfile.objects.order_by('user__date_joined')[:12]
         context['users_count'] = BadgerProfile.objects.count()
+        context['repository_count'] = Repository.objects.count()
         return context
 
