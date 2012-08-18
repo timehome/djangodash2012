@@ -21,13 +21,6 @@ class FrontEnd(Role):
             role.create_site(site='website', template='website')
             role.ensure_site_enabled('website')
 
-        with self.using(SupervisorRole) as role:
-            role.config(
-                config_file_directory='/home/badger',
-                log_folder='/home/badger',
-                user='badger'
-            )
-
         with self.using(MySQLRole) as role:
             role.ensure_user(username='badger',
                              identified_by=self.context['mysql-pass'])
@@ -42,35 +35,44 @@ class FrontEnd(Role):
 
         self.provision_role(PipRole) # does not need to be called if using with block.
 
-        with self.using(DjangoRole) as role:
-            role.restart_supervisor_on_changes = True
-            with role.create_site('mysite') as site:
-                site.path = '/home/badger/badger/badger/settings.py'
-                site.use_supervisor = True
-                site.supervisor_log_path = '/home/badger/'
-                site.threads = 4
-                site.processes = 4
-                site.user = 'badger'
+        with self.using(SupervisorRole) as role:
+            role.config(
+                config_file_directory='/home/badger',
+                pidfile='/home/badger/supervisor.pid',
+                log_folder='/home/badger',
+                user='badger'
+            )
 
-                # settings that override the website defaults.
-                site.settings = {
-                    'DATABASES': {
-                        'default': {
-                            'ENGINE': 'django.db.backends.mysql',
-                            'NAME': 'badger',
-                            'USER': 'badger',
-                            'PASSWORD': self.context['mysql_password'],
-                            'HOST': '',
-                            'PORT': ''
+            with self.using(DjangoRole) as role:
+                role.restart_supervisor_on_changes = True
+
+                with role.create_site('badger-site') as site:
+                    site.settings_path = '/home/badger/badger/badger.settings'
+                    site.pid_file_path = '/home/badger'
+                    site.use_supervisor = True
+                    site.supervisor_log_path = '/home/badger/'
+                    site.threads = 4
+                    site.processes = 4
+                    site.user = 'badger'
+
+                    # settings that override the website defaults.
+                    site.settings = {
+                        'DATABASES': {
+                            'default': {
+                                'ENGINE': 'django.db.backends.mysql',
+                                'NAME': 'badger',
+                                'USER': 'badger',
+                                'PASSWORD': self.context['mysql-pass'],
+                                'HOST': '',
+                                'PORT': ''
+                            }
                         }
                     }
-                }
 
 servers = {
     'badger': {
         'frontend': {
-            #'address': 'badger.timeho.me',
-            'address': '50.116.45.155',
+            'address': 'badger.timeho.me',
             'user': 'root',
             'roles': [
                 FrontEnd

@@ -7,7 +7,7 @@ upstream frontends {
 
 server {
     listen 80;
-    server_name  localhost badger.timeho.me 50.116.45.155;
+    server_name  localhost badger.timeho.me;
 
     access_log  /home/badger/website.access.log;
 

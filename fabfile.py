@@ -15,7 +15,7 @@ def deploy():
     Full git deployment. Migrations, reloading gunicorn.
     """
 
-    with settings(host_string='50.116.45.155', user='root'):
+    with settings(host_string='badger.timeho.me', user='root'):
         exists = run('if [ -d %s ]; then echo TRUE; fi' % env.REMOTE_CODEBASE_PATH) == 'TRUE'
 
         if not exists:
