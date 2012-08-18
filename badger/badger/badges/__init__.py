@@ -130,7 +130,8 @@ def count_modifications_by_user(email, directory):
         return result
 
 
-from repository.models import Repository, UnknownUser
+from achievement.models import Achievement, ContributorAchievement
+from repository.models import Repository, UnknownUser, Contributor
 
 
 class RepositoryWorker(object):
@@ -139,15 +140,25 @@ class RepositoryWorker(object):
     def perform(cls, user):
         temp_dir = None
         #try:
+
         username, repo_name = re.search('github\.com/([\w_]+)/([\w_]+)', user["repo"]["url"]).groups()
 
-        gh = Github() #login=user['email'], token=user['token'])
-        repo = gh.repos.get(user=username, repo=repo_name)
+        try:
+            db_repo = Repository.objects.get(git_url=user['repo']['url'])
+        except Repository.DoesNotExist:
+            gh = Github() #login=user['email'], token=user['token'])
+            repo = gh.repos.get(user=username, repo=repo_name)
+
+            db_repo = Repository(name=repo.name,
+                    git_url=repo.git_url,
+                    html_url=repo.html_url,
+                    url=repo.url,
+                    language=repo.language)
+
+            db_repo.save()
 
         temp_dir = tempfile.mkdtemp()
         processor = RepositoryProcessor(clone_repo(user["repo"]["url"], temp_dir))
-        print processor.process()
+        response = processor.process()
 
-        #except Exception, e:
-            #print e
 
