@@ -1,3 +1,4 @@
 django
 pygit2
 django-social-auth
+pyres
