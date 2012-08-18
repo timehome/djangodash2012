@@ -25,6 +25,8 @@ def deploy():
 
         run('cd %s && pip install -r requirements.txt' % env.REMOTE_CODEBASE_PATH)
 
+    restart()
+
 def db():
     with settings(host_string='badger.timeho.me', user='root'):
         run('mysql -u root --password= -e "DROP DATABASE IF EXISTS badger"')
