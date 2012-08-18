@@ -3,7 +3,8 @@
 
 import unittest
 
-from badger.badges import RepositoryWorker, initialize_badge_classes
+from badger.badges import initialize_badge_classes
+from badger.badges.processor import RepositoryWorker
 from repository.models import Repository, UnknownUser, Contributor
 
 initialize_badge_classes()
