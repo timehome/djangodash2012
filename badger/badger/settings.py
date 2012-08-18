@@ -172,7 +172,7 @@ GITHUB_API_SECRET = 'ef1dfbd6f8ede9fd2697533be062842d53561f63'
 
 GITHUB_EXTENDED_PERMISSIONS = []
 
-BADGES = [
+BADGES_ENABLED = [
     'badger.badges.NewbieBadge',
     'badger.badges.Highlander',
 ]
