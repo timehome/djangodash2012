@@ -39,4 +39,5 @@ def db():
 def restart():
     with settings(host_string='badger.timeho.me', user='root'):
         for i in range(4):
-            run('/etc/init.d/badger-site-80%02d stop && /etc/init.d/badger-site-80%02d start &' % (i, i))
+            run('/etc/init.d/badger-site-80%02d stop && PYTHONPATH=$PYTHONPATH:%s /etc/init.d/badger-site-80%02d start &' % (i, env.REMOTE_CODEBASE_PATH, i))
+
