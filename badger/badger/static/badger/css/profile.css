@@ -1,0 +1,91 @@
+header {
+    overflow: hidden;
+}
+
+header .photo {
+    float: left;
+    margin: 40px 34px 0 40px;
+    margin-right: 34px;
+}
+
+header .photo img {
+    width: 160px;
+    height: 160px;
+
+    border-radius: 3px;
+}
+
+header .profile-data {
+    float: left;
+    margin: 26px 80px 26px 0;
+    padding: 14px 80px 14px 0;
+    border-right: solid 1px #d9d9d9;
+}
+
+header .profile-data .user {
+    overflow: hidden;
+    height: 65px;
+}
+
+header .profile-data .user .name {
+    float: left;
+    font-size: 62px;
+    font-weight: bold;
+    color: #0090bf;
+}
+
+header .profile-data .user a {
+    display: block;
+    float: left;
+    margin-top: 10px;
+    margin-left: 20px;
+    text-decoration: none;
+    text-indent: -99999px;
+    width: 44px;
+    height: 44px;
+    background: url('../img/favorite.png') 0 0 no-repeat;
+}
+
+header .profile-data .user a.active,
+header .profile-data .user a:hover {
+    background-position: 0 -50px;
+}
+
+header .profile-data .email {
+    display: block;
+    margin-top: 7px;
+    font-size: 25px;
+    font-weight: bold;
+    color: #d9d9d9;
+}
+
+header .profile-data .participation {
+    margin-top: 15px;
+}
+
+header .profile-data .participation .icon {
+    float: left;
+}
+
+header .profile-data .participation .badges .icon {
+    width: 51px;
+    height: 51px;
+    background: url('../img/badges.png') no-repeat;
+    text-indent: -99999px;
+}
+
+header .profile-data .participation .data {
+    float: left;
+    margin-left: 12px;
+    font-size: 50px;
+    font-weight: bold;
+    color: #575757;
+}
+
+header .profile-data .participation .repos .icon {
+    background: url('../img/repos.png') no-repeat;
+    width: 50px;
+    height: 50px;
+    margin-left: 38px;
+    text-indent: -99999px;
+}

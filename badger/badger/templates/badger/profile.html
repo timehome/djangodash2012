@@ -1,0 +1,37 @@
+{% extends "badger/master.html" %}
+{% load static from staticfiles %}
+
+{% block title %}my badges{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" type="text/css" href="{% static 'badger/css/profile.css' %}">
+{% endblock %}
+
+{% block header %}
+    <div class="photo">
+        <img src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200" />
+    </div>
+    <div class="profile-data">
+        <div class="user"><span class="name">galinho</span><a href="#">favorite</a></div>
+        <div class="email">galinho@corp.globo.com</div>
+        <div class="participation">
+            <div class="badges">
+                <div class="icon">number of badges</div>
+                <div class="data">25</div>
+            </div>
+            <div class="repos">
+                <div class="icon">number of repositories</div>
+                <div class="data">25</div>
+            </div>
+
+        </div>
+    </div>
+    <div class="commits">
+        <div class="number">2,357</div>
+        <div class="label">commits</div>
+        <div class="changes"><span class="additions">+23,340</span> <span class="removals">-40,439</span></div>
+    </div>
+{% endblock %}
+
+{% block contents %}
+{% endblock %}
