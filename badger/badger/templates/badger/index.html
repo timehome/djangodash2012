@@ -17,24 +17,15 @@
         <div class="container">
             <div class="whos-using">
                 <ul>
-                    <li><a href="/user/1"><img src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=80"></a></li>
-                    <li><a href="/user/2"><img src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=80"></a></li>
-                    <li><a href="/user/3"><img src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=80"></a></li>
-                    <li><a href="/user/4"><img src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=80"></a></li>
-                    <li><a href="/user/5"><img src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=80"></a></li>
-                    <li><a href="/user/6"><img src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=80"></a></li>
-                    <li><a href="/user/7"><img src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=80"></a></li>
-                    <li><a href="/user/8"><img src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=80"></a></li>
-                    <li><a href="/user/9"><img src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=80"></a></li>
-                    <li><a href="/user/10"><img src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=80"></a></li>
-                    <li><a href="/user/11"><img src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=80"></a></li>
-                    <li><a href="/user/12"><img src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=80"></a></li>
+                    {% for user in users %}
+                        <li><a href="/profile/{{ user.user_id }}"><img src="{{ user.thumb_url }}"></a></li>
+                    {% endfor %}
                 </ul>
                 <div class="image"></div>
             </div>
             <div class="numbers">
                 <div class="registered">
-                    <div class="data">12,034</div>
+                    <div class="data">{{ users_count }}</div>
                     <div class="image">people registered</div>
                 </div>
                 <div class="processed">
