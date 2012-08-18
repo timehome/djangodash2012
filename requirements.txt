@@ -3,3 +3,4 @@ MySQL-python
 pygit2
 django-social-auth
 pyres
+pygithub3
