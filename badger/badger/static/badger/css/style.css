@@ -20,6 +20,7 @@ footer {
     color: #666;
     font-size: 12px;
     font-weight: bold;
+    border-top: solid 2px #D9D9D9;
 }
 
 footer a {

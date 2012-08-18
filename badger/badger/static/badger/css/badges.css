@@ -1,0 +1,17 @@
+.newbie-badger {
+    width: 56px;
+    height: 58px;
+    background: url('../img/newbie-badger.png') no-repeat;
+}
+
+.big-bad-badger {
+    width: 56px;
+    height: 58px;
+    background: url('../img/bbb.png') no-repeat;
+}
+
+.commitacula {
+    width: 56px;
+    height: 58px;
+    background: url('../img/commitacula.png') no-repeat;
+}

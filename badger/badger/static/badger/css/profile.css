@@ -1,4 +1,4 @@
-header {
+header .container {
     overflow: hidden;
 }
 
@@ -25,6 +25,7 @@ header .profile-data {
 header .profile-data .user {
     overflow: hidden;
     height: 65px;
+    padding-top: 16px;
 }
 
 header .profile-data .user .name {
@@ -51,15 +52,9 @@ header .profile-data .user a:hover {
     background-position: 0 -50px;
 }
 
-header .profile-data .email {
-    display: block;
-    margin-top: 7px;
-    font-size: 25px;
-    font-weight: bold;
-    color: #d9d9d9;
-}
-
 header .profile-data .participation {
+    padding-bottom: 16px;
+    overflow: hidden;
     margin-top: 15px;
 }
 
@@ -88,4 +83,86 @@ header .profile-data .participation .repos .icon {
     height: 50px;
     margin-left: 38px;
     text-indent: -99999px;
+}
+
+header .commits {
+    float: left;
+    margin-top: 44px;
+    text-align: center;
+}
+
+header .commits .number {
+    font-size: 75px;
+    font-weight: bold;
+    color: #585858;
+    margin-bottom: 10px;
+}
+
+header .commits .label {
+    background: url('../img/processed_commits.png') 0 0 no-repeat;
+    width: 148px;
+    height: 45px;
+    margin: 0 auto;
+    text-indent: -99999px;
+}
+
+header .commits .changes {
+    margin-top: 10px;
+    font-size: 17px;
+    font-weight: bold;
+}
+
+header .commits .changes .additions {
+    color: #00a828;
+}
+
+header .commits .changes .removals {
+    color: #c00000;
+}
+
+.badges-section {
+    border-top: solid 2px #d9d9d9;
+    background-color: #585858;
+    border-bottom: solid 2px #d9d9d9;
+    padding-bottom: 40px;
+}
+
+.badges-section .repos > li {
+    overflow: hidden;
+    margin-top: 40px;
+}
+
+.badges-section .repos .icon {
+    float: left;
+    background: url('../img/repo-badges.png') no-repeat;
+    width: 31px;
+    height: 31px;
+    margin-right: 20px;
+    margin-top: 10px;
+}
+
+.badges-section .repos .name {
+    float: left;
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 16px;
+    width: 200px;
+}
+
+.badges-section .repos .name a {
+    text-decoration: none;
+    color: #d9d9d9;
+}
+
+.badges-section .repos .name a:hover {
+    text-decoration: underline;
+}
+
+.badges-section .repos .badge-list {
+    float: left;
+}
+
+.badges-section .repos .badge-list li {
+    float: left;
+    margin-right: 10px;
 }

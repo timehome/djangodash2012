@@ -5,33 +5,90 @@
 
 {% block style %}
     <link rel="stylesheet" type="text/css" href="{% static 'badger/css/profile.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'badger/css/badges.css' %}">
 {% endblock %}
 
 {% block header %}
-    <div class="photo">
-        <img src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200" />
-    </div>
-    <div class="profile-data">
-        <div class="user"><span class="name">galinho</span><a href="#">favorite</a></div>
-        <div class="email">galinho@corp.globo.com</div>
-        <div class="participation">
-            <div class="badges">
-                <div class="icon">number of badges</div>
-                <div class="data">25</div>
-            </div>
-            <div class="repos">
-                <div class="icon">number of repositories</div>
-                <div class="data">25</div>
-            </div>
-
+    <div class="container">
+        <div class="photo">
+            <img src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200" />
         </div>
-    </div>
-    <div class="commits">
-        <div class="number">2,357</div>
-        <div class="label">commits</div>
-        <div class="changes"><span class="additions">+23,340</span> <span class="removals">-40,439</span></div>
+        <div class="profile-data">
+            <div class="user"><span class="name">galinho</span><a href="#" class="follow" title="follow this badger">follow</a></div>
+            <div class="participation">
+                <div class="badges">
+                    <div class="icon">number of badges</div>
+                    <div class="data">25</div>
+                </div>
+                <div class="repos">
+                    <div class="icon">number of repositories</div>
+                    <div class="data">25</div>
+                </div>
+
+            </div>
+        </div>
+        <div class="commits">
+            <div class="number">2,357</div>
+            <div class="label">commits</div>
+            <div class="changes"><span class="additions">+23,340</span> <span class="removals">-40,439</span></div>
+        </div>
     </div>
 {% endblock %}
 
 {% block contents %}
+<div class="badges-section">
+    <div class="container">
+        <ul class="repos">
+            <li>
+                <div class="icon"></div>
+                <div class="name"><a href="">thumbor</a></div>
+                <ul class="badge-list">
+                    <li class="newbie-badger" title="this badger is no stranger to git (1 commit in this project)">
+                    </li>
+                    <li class="big-bad-badger" title="who's afraid of this big bad badger? (100+ commits in this project)">
+                    </li>
+                    <li class="commitacula" title="this badger is a creature of the night (most commits in the evening)">
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <div class="icon"></div>
+                <div class="name"><a href="">pyvows</a></div>
+                <ul class="badge-list">
+                    <li class="newbie-badger" title="this badger is no stranger to git (1 commit in this project)">
+                    </li>
+                    <li class="commitacula" title="this badger is a creature of the night (most commits in the evening)">
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="more-info">
+    <div class="favorites">
+        <div class="icon">
+            my favorites
+        </div>
+        <ul>
+            <li><a href="/user/1"><img src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=80"></a></li>
+            <li><a href="/user/1"><img src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=80"></a></li>
+            <li><a href="/user/1"><img src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=80"></a></li>
+            <li><a href="/user/1"><img src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=80"></a></li>
+        </ul>
+        <div class="and-more">and 35 more...</div>
+    </div>
+    <div class="invite">
+        <div class="icon">invite a friend</div>
+        <form action="/invite" method="post">
+            <div class="emails">
+                <label for="e-mails">Invite these people</label>
+                <input type="text" name="e-mails" id="e-mails" placeholder="semi-colon separated list of e-mails"></input>
+            </div>
+            <div class="submit">
+                <input type="submit">SEND</input>
+            </div>
+        </form>
+    </div>
+</div>
 {% endblock %}
