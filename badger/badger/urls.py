@@ -1,12 +1,14 @@
-from django.conf.urls import patterns, include, url
+from django.conf.urls import patterns, url
+from badger.views import IndexView
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
 # admin.autodiscover()
 
 urlpatterns = patterns('',
+    (r'', IndexView.as_view()),
     # Examples:
-    # url(r'^$', 'badger.views.home', name='home'),
+    url(r'^$', 'badger.views.home', name='home'),
     # url(r'^badger/', include('badger.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
