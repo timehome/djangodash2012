@@ -7,6 +7,7 @@
 
     <link rel="stylesheet" type="text/css" href="{% static 'badger/css/reset.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'badger/css/style.css' %}">
+    {% block style %}{% endblock %}
 </head>
 <body>
     <header>
@@ -21,5 +22,9 @@
         <h4>badger was made by <a href=https://github.com/timehome"">timehome</a> for the <a href="http://djangodash.com/">django dash 2012</a></h4>
         <h5>badger is registered under the <a href="http://en.wikipedia.org/wiki/MIT_License">MIT License</a> and is <a href="http://en.wikipedia.org/wiki/Free_and_open-source_software">FOSS</a></h5>
     </footer>
+
+    <script type="text/javascript" src="{% static 'badger/js/jquery-1.8.0.min.js' %}"></script>
+    {% block javascript %}
+    {% endblock %}
 </body>
 </html>
