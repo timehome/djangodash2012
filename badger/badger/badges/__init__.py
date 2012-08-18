@@ -69,14 +69,14 @@ class BigBadBadge(Badge):
 
 
 from datetime import datetime
-from pygit2 import Repository
+from pygit2 import Repository as GitRepository
 from pygit2 import GIT_SORT_TIME
 
 
 class RepositoryProcessor(object):
 
     def __init__(self, repository_path):
-        self.repo = Repository(repository_path + '/.git')
+        self.repo = GitRepository(repository_path + '/.git')
         self.users = {}
 
     def get_bages_processors_for_user(self, email):
@@ -131,7 +131,7 @@ def count_modifications_by_user(email, directory):
 
 
 from django.db import transaction
-from achievement.models import Achievement, ContributorAchievement
+from achievement.models import ContributorAchievement
 from repository.models import Repository, UnknownUser, Contributor
 
 
@@ -144,23 +144,49 @@ class RepositoryWorker(object):
 
         username, repo_name = re.search('github\.com/([\w_]+)/([\w_]+)', user["repo"]["url"]).groups()
 
+        try:
+            db_repo = Repository.objects.get(git_url=user['repo']['url'])
+        except Repository.DoesNotExist:
+            gh = Github() #login=user['email'], token=user['token'])
+            repo = gh.repos.get(user=username, repo=repo_name)
+
+            db_repo = Repository(name=repo.name,
+                    git_url=repo.git_url,
+                    html_url=repo.html_url,
+                    url=repo.url,
+                    language=repo.language)
+
+            db_repo.save()
+
+        temp_dir = tempfile.mkdtemp()
+        processor = RepositoryProcessor(clone_repo(user["repo"]["url"], temp_dir))
+        response = processor.process()
+
         with transaction.commit_on_success():
-            try:
-                db_repo = Repository.objects.get(git_url=user['repo']['url'])
-            except Repository.DoesNotExist:
-                gh = Github() #login=user['email'], token=user['token'])
-                repo = gh.repos.get(user=username, repo=repo_name)
+            for unknown_contributor in response:
+                uku, created = UnknownUser.objects.get_or_create(email=unknown_contributor['email'], defaults={
+                    "email": unknown_contributor['email']
+                })
 
-                db_repo = Repository(name=repo.name,
-                        git_url=repo.git_url,
-                        html_url=repo.html_url,
-                        url=repo.url,
-                        language=repo.language)
+                db_user = None
+                try:
+                    db_user = User.objects.get(email=unknown_contributor['email'])
+                except:
+                    pass
 
-                db_repo.save()
+                contributor, created = Contributor.objects.get_or_create(unknown_contributor=uku, defaults={
+                    "user": db_user,
+                    "unknown_contributor": uku,
+                    "repository": db_repo,
+                    "addtions": unknown_contributor['added_lines'],
+                    "remotions": unknown_contributor['removed_lines']
+                })
 
-            temp_dir = tempfile.mkdtemp()
-            processor = RepositoryProcessor(clone_repo(user["repo"]["url"], temp_dir))
-            response = processor.process()
+                for badge in unknown_contributor['badges']:
+                    ContributorAchievement.objects.get_or_create(achievement=badge['badge_slug'],
+                        contributor=contributor, defaults = {
+                        'achievement': badge['badge_slug'],
+                        'contributor': contributor
+                    })
 
 

@@ -6,6 +6,6 @@ from repository.models import Contributor
 
 
 class ContributorAchievement(models.Model):
-    achievement = models.CharField(max_length=100)
+    achievement = models.CharField(max_length=100, db_index=True)
     contributor = models.ForeignKey(Contributor)
 

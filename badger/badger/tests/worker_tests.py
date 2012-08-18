@@ -4,6 +4,7 @@
 import unittest
 
 from badger.badges import RepositoryWorker, initialize_badge_classes
+from repository.models import Repository, UnknownUser, Contributor
 
 initialize_badge_classes()
 
@@ -14,10 +15,13 @@ class BadgeWorkerTestCase(unittest.TestCase):
             "email": "rafael.jacinto@gmail.com",
             "token": "abcdef",
             "repo": {
-                "name": 'thumbor',
-                "url": "git://github.com/globocom/thumbor.git"
+                "name": 'insthumbor',
+                "url": "git://github.com/rafaelcaricio/insthumbor.git"
             }
         }
         RepositoryWorker.perform(user)
+
+        self.assertEqual(Repository.objects.count(), 1)
+        self.assertEqual(UnknownUser.objects.count(), 3)
 
 
