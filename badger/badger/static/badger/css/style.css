@@ -13,11 +13,11 @@ header .top-row {
 }
 
 footer {
-    height: 90px;
+    height: 60px;
     background-color: #333;
     text-align: center;
 
-    color: #a8a8a8;
+    color: #666;
     font-size: 12px;
     font-weight: bold;
 }
@@ -32,7 +32,7 @@ footer a:hover {
 }
 
 footer h4 {
-    padding-top: 25px;
+    padding-top: 17px;
 }
 
 footer h5 {

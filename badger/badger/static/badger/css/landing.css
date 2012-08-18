@@ -98,3 +98,25 @@ header > h2 {
     height: 19px;
     margin: 0 auto;
 }
+
+.login {
+    height: 160px;
+}
+
+.login a {
+    display: block;
+    text-decoration: none;
+    text-indent: -99999px;
+    background: url('../img/login-button.png') 0 0 no-repeat;
+    width: 308px;
+    height: 114px;
+    margin: 60px auto;
+}
+
+.login a:hover {
+    background-position: 0 -243px;
+}
+
+.login a:active {
+    background-position: 0 -123px;
+}
