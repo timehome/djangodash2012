@@ -1,7 +1,28 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from django.conf import settings
+import logging
+
+
+BADGES_CLASSES = []
+
+
+def import_class(name):
+    module_name = '.'.join(name.split('.')[:-1])
+    klass_name = name.split('.')[-1]
+    module = __import__(module_name)
+    if '.' in module_name:
+        module = reduce(getattr, module_name.split('.')[1:], module)
+    return getattr(module, klass_name)
+
+
+def initialize_badge_classes():
+    from django.conf import settings
+    for badge_class_name in getattr(settings, 'BADGES_ENABLED', []):
+        try:
+            BADGES_CLASSES.append(import_class(badge_class_name))
+        except Exception, e:
+            logging.info(u"Coun't import badge class (%s) the error was: %s" % (badge_class_name, str(e)))
 
 
 class Badge(object):
@@ -40,9 +61,10 @@ class RepositoryProcessor(object):
         # returns the json of the collaborators
         pass
 
+
 class RepositoryWorker(object):
 
     @classmethod
-    def process_repository(cls, repository_name, repository_url, username, token):
+    def perform(cls, repository_name, repository_url, username, token):
         pass
 
