@@ -122,12 +122,15 @@ def clone_repo(git_repo_url, directory):
 
 def count_modifications_by_user(email, directory):
     directory = directory.replace('.git/', '')
-    command = """cd %s && git log --author="%s" --pretty=tformat: --numstat | awk '{ add += $1 ; subs += $2 ; loc += $1 - $2 } END { printf "{\"added_lines\":%%s,\"removed_lines\":%%s,\"total_lines\":%%s}\n",add,subs,loc }'""" % (directory, email)
+    command = """cd %s && /usr/bin/git log --author="%s" --pretty=tformat: --numstat | awk '{ add += $1 ; subs += $2 ; loc += $1 - $2 } END { printf "{\"added_lines\":%%s,\"removed_lines\":%%s,\"total_lines\":%%s}\n",add,subs,loc }'""" % (directory, email)
     result = {"added_lines":0,"removed_lines":0,"total_lines":0}
     try:
         result = json.loads(subprocess.check_output(command))
     finally:
         return result
+
+
+from repository.models import Repository, UnknownUser
 
 
 class RepositoryWorker(object):
@@ -137,8 +140,9 @@ class RepositoryWorker(object):
         temp_dir = None
         #try:
         username, repo_name = re.search('github\.com/([\w_]+)/([\w_]+)', user["repo"]["url"]).groups()
-        #gh = Github(login=user['email'], token=user['token'])
-        #repo = gh.repos.get(user=username, repo=repo_name)
+
+        gh = Github() #login=user['email'], token=user['token'])
+        repo = gh.repos.get(user=username, repo=repo_name)
 
         temp_dir = tempfile.mkdtemp()
         processor = RepositoryProcessor(clone_repo(user["repo"]["url"], temp_dir))
