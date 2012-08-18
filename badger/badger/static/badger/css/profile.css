@@ -1,4 +1,4 @@
-header {
+header .container {
     overflow: hidden;
 }
 
@@ -88,4 +88,39 @@ header .profile-data .participation .repos .icon {
     height: 50px;
     margin-left: 38px;
     text-indent: -99999px;
+}
+
+header .commits {
+    float: left;
+    margin-top: 52px;
+    text-align: center;
+}
+
+header .commits .number {
+    font-size: 75px;
+    font-weight: bold;
+    color: #585858;
+    margin-bottom: 10px;
+}
+
+header .commits .label {
+    background: url('../img/processed_commits.png') 0 0 no-repeat;
+    width: 148px;
+    height: 45px;
+    margin: 0 auto;
+    text-indent: -99999px;
+}
+
+header .commits .changes {
+    margin-top: 10px;
+    font-size: 17px;
+    font-weight: bold;
+}
+
+header .commits .changes .additions {
+    color: #00a828;
+}
+
+header .commits .changes .removals {
+    color: #c00000;
 }
