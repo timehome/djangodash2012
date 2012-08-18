@@ -19,6 +19,6 @@ class Contributor(models.Model):
     repository = models.ForeignKey(Repository)
     user = models.ForeignKey(User, null=True, blank=True)
     unknown_contributor = models.ForeignKey(UnknownUser, null=True, blank=True)
-    addtions = models.IntegerField(default=0, blank=True)
-    remotions = models.IntegerField(default=0, blank=True)
+    added_lines = models.IntegerField(default=0, blank=True)
+    removed_lines = models.IntegerField(default=0, blank=True)
     commmits = models.IntegerField(default=0, blank=True)

@@ -178,8 +178,8 @@ class RepositoryWorker(object):
                     "user": db_user,
                     "unknown_contributor": uku,
                     "repository": db_repo,
-                    "addtions": unknown_contributor['added_lines'],
-                    "remotions": unknown_contributor['removed_lines']
+                    "added_lines": unknown_contributor['added_lines'],
+                    "removed_lines": unknown_contributor['removed_lines']
                 })
 
                 for badge in unknown_contributor['badges']:
