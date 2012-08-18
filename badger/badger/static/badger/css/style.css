@@ -2,6 +2,11 @@ body {
     font-family: arial;
 }
 
+.container {
+    width: 940px;
+    margin: 0 auto;
+}
+
 header .top-row {
     height: 8px;
     background-color: #e4e1ff;

@@ -1,9 +1,14 @@
-header > h1 {
-    text-indent: -99999px;
-    background: url('../img/logo.png') 0 0 no-repeat;
+header > a {
+    display: block;
     width: 428px;
     height: 112px;
     margin: 63px auto 0;
+}
+
+header > a h1 {
+    text-indent: -99999px;
+    background: url('../img/logo.png') 0 0 no-repeat;
+    height: 112px;
 }
 
 header > h2 {
@@ -12,4 +17,84 @@ header > h2 {
     width: 722px;
     height: 161px;
     margin: 60px auto;
+}
+
+.stats {
+    background-color: #d9d9d9;
+    border-top: solid 2px #a8a8a8;
+    border-bottom: solid 2px #a8a8a8;
+    overflow: hidden;
+}
+
+.stats .whos-using {
+    float: left;
+    width: 352px;
+    padding-bottom: 19px;
+    margin: 20px 0;
+    border-right: solid 1px #888;
+}
+
+.stats .whos-using ul {
+    overflow: hidden;
+    margin-top: 30px;
+    width: 260px;
+}
+
+.stats .whos-using li {
+    float: left;
+    margin-right: 20px;
+    margin-bottom: 20px;
+}
+
+.stats .whos-using li:nth-child(4n+4) {
+    margin-right: 0;
+}
+
+.stats .whos-using li img {
+    width: 50px;
+    height: 50px;
+    border-radius: 3px;
+}
+
+.stats .whos-using .image {
+    background: url('../img/whosusing.png') 0 0 no-repeat;
+    width: 218px;
+    height: 19px;
+    margin-left: 18px;
+}
+
+.stats .numbers {
+    float: left;
+    margin-top: 48px;
+    text-align: center;
+    width: 587px;
+}
+
+.stats .numbers .data {
+    font-size: 72px;
+    font-weight: bold;
+    color: #595959;
+}
+
+.stats .numbers .image {
+    text-indent: -99999px;
+    margin-top: 8px;
+}
+
+.stats .numbers .registered {
+    margin-bottom: 40px;
+}
+
+.stats .numbers .registered .image {
+    background: url('../img/people-registered.png') 0 0 no-repeat;
+    width: 278px;
+    height: 19px;
+    margin: 0 auto;
+}
+
+.stats .numbers .processed .image {
+    background: url('../img/repositories-processed.png') 0 0 no-repeat;
+    width: 362px;
+    height: 19px;
+    margin: 0 auto;
 }
