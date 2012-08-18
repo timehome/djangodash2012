@@ -3,6 +3,7 @@
 
 import re
 import logging
+import tempfile
 
 from pygithub3 import Github
 
@@ -34,10 +35,7 @@ class Badge(object):
     def __init__(self, user_email):
         self.user_email = user_email
 
-    def process_commit(self, commit, lines_added, lines_removed):
-        pass
-
-    def process_repositories(self, repositories):
+    def process_commit(self, commit, commit_date, lines_added, lines_removed):
         pass
 
     def award_this(self):
@@ -47,7 +45,7 @@ class Badge(object):
 class NewbieBadge(Badge):
     slug = 'newbie_badge'
 
-    def process_commit(self, commit, lines_added, lines_removed):
+    def process_commit(self, commit, commit_date, lines_added, lines_removed):
         if commit.author.email == self.user_email:
             self.has_this_badge = True
 
@@ -55,23 +53,97 @@ class NewbieBadge(Badge):
         return self.has_this_badge
 
 
+class BigBadBadge(Badge):
+    slug = 'bigbad_badge'
+
+    def __init__(self, *args, **kw):
+        super(BigBadBadge, self).__init__(*args, **kw)
+        self.count = 0
+
+    def process_commit(self, commit, commit_date, lines_added, lines_removed):
+        if commit.author.email == self.user_email:
+            self.count += 1
+
+    def award_this(self):
+        return self.count >= 100
+
+
+
+from datetime import datetime
+from pygit2 import Repository
+from pygit2 import GIT_SORT_TIME
+
+
 class RepositoryProcessor(object):
 
     def __init__(self, repository_path):
-        self.repository_path = repository_path
+        self.repo = Repository(repository_path + '/.git')
+        self.users = {}
+
+    def get_bages_processors_for_user(self, email):
+        if email in self.users:
+            return self.users[email]
+        self.users[email] = []
+        for badge_class in BADGES_CLASSES:
+            self.users[email].append(badge_class(email))
+        return self.users[email]
 
     def process(self):
         # returns the json of the collaborators
-        pass
+        last_commit = None
+        for commit in [c for c in self.repo.walk(self.repo.head.oid, GIT_SORT_TIME)][::-1]:
+            lines_added = 0
+            lines_removed = 0
+            if last_commit:
+                # make a diff and count lines
+                pass
+            for badge in self.get_bages_processors_for_user(commit.author.email):
+                badge.process_commit(commit,
+                        datetime.fromtimestamp(commit.commit_time),
+                        lines_added,
+                        lines_removed)
+            last_commit = commit
+        result = []
+        for user_email, badges in self.users.items():
+            user = {"email": user_email, "badges": []}
+            result.append(user)
+            for badge in badges:
+                if badge.award_this():
+                    user['badges'].append({"badge_slug": badge.slug})
+        return result
+
+
+from os import remove
+from os.path import exists
+import subprocess
+
+
+class CantCloneRepositoryException(Exception):
+    pass
+
+
+def clone_repo(git_repo_url, directory):
+    if subprocess.call(['git', 'clone', git_repo_url, directory]):
+        raise CantCloneRepositoryException()
+    else:
+        logging.info('Cloned repository %s into %s ...' % (git_repo_url, directory))
+        return directory
 
 
 class RepositoryWorker(object):
 
     @classmethod
-    def perform(cls, repository, token, email):
-        import ipdb;ipdb.set_trace()
-        
-        all_match, username, repo_name = re.match('github.com/([\w_]+)/([\w_]+)', repository.url).groups()
-        gh = Github(user=username, token=token)
-        repository = gh.repos.get(user=username, repo=repository_name)
+    def perform(cls, user):
+        temp_dir = None
+        #try:
+        username, repo_name = re.search('github\.com/([\w_]+)/([\w_]+)', user["repo"]["url"]).groups()
+        #gh = Github(login=user['email'], token=user['token'])
+        #repo = gh.repos.get(user=username, repo=repo_name)
+
+        temp_dir = tempfile.mkdtemp()
+        processor = RepositoryProcessor(clone_repo(user["repo"]["url"], temp_dir))
+        print processor.process()
+
+        #except Exception, e:
+            #print e
 
