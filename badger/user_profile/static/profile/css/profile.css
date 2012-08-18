@@ -167,4 +167,9 @@ header .commits .changes .removals {
     margin-right: 10px;
 }
 
-
+.more-info .favorites .icon {
+    text-indent: -99999px;
+    width: 304px;
+    height: 19px;
+    background: url('../img/follows.png') no-repeat;
+}

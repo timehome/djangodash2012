@@ -66,29 +66,31 @@
 </div>
 
 <div class="more-info">
-    <div class="favorites">
-        <div class="icon">
-            my favorites
+    <div class="container">
+        <div class="favorites">
+            <div class="icon">
+                my favorites
+            </div>
+            <ul>
+                <li><a href="/user/1"><img src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=80"></a></li>
+                <li><a href="/user/1"><img src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=80"></a></li>
+                <li><a href="/user/1"><img src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=80"></a></li>
+                <li><a href="/user/1"><img src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=80"></a></li>
+            </ul>
+            <div class="and-more">and 35 more...</div>
         </div>
-        <ul>
-            <li><a href="/user/1"><img src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=80"></a></li>
-            <li><a href="/user/1"><img src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=80"></a></li>
-            <li><a href="/user/1"><img src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=80"></a></li>
-            <li><a href="/user/1"><img src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=80"></a></li>
-        </ul>
-        <div class="and-more">and 35 more...</div>
-    </div>
-    <div class="invite">
-        <div class="icon">invite a friend</div>
-        <form action="/invite" method="post">
-            <div class="emails">
-                <label for="e-mails">Invite these people</label>
-                <input type="text" name="e-mails" id="e-mails" placeholder="semi-colon separated list of e-mails"></input>
-            </div>
-            <div class="submit">
-                <input type="submit">SEND</input>
-            </div>
-        </form>
+        <div class="invite">
+            <div class="icon">invite a friend</div>
+            <form action="/invite" method="post">
+                <div class="emails">
+                    <label for="e-mails">Invite these people</label>
+                    <input type="text" name="e-mails" id="e-mails" placeholder="semi-colon separated list of e-mails"></input>
+                </div>
+                <div class="submit">
+                    <input type="submit">SEND</input>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 {% endblock %}
