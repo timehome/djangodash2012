@@ -25,6 +25,7 @@ header .profile-data {
 header .profile-data .user {
     overflow: hidden;
     height: 65px;
+    padding-top: 16px;
 }
 
 header .profile-data .user .name {
@@ -51,15 +52,9 @@ header .profile-data .user a:hover {
     background-position: 0 -50px;
 }
 
-header .profile-data .email {
-    display: block;
-    margin-top: 7px;
-    font-size: 25px;
-    font-weight: bold;
-    color: #d9d9d9;
-}
-
 header .profile-data .participation {
+    padding-bottom: 16px;
+    overflow: hidden;
     margin-top: 15px;
 }
 
@@ -92,7 +87,7 @@ header .profile-data .participation .repos .icon {
 
 header .commits {
     float: left;
-    margin-top: 52px;
+    margin-top: 44px;
     text-align: center;
 }
 
@@ -150,9 +145,17 @@ header .commits .changes .removals {
     float: left;
     font-size: 24px;
     font-weight: bold;
-    color: #d9d9d9;
     margin-top: 16px;
     width: 200px;
+}
+
+.badges-section .repos .name a {
+    text-decoration: none;
+    color: #d9d9d9;
+}
+
+.badges-section .repos .name a:hover {
+    text-decoration: underline;
 }
 
 .badges-section .repos .badge-list {
