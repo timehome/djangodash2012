@@ -1,9 +1,13 @@
+{% extends "badger/master.html" %}
 {% load static from staticfiles %}
-<html>
-    <head>
-        <link rel="stylesheet" type="text/css" href="{% static 'badger/css/reset.css' %}">
-    </head>
-    <body>
-        <a href='/auth/login/github'>Login</a>
-    </body>
-</html>
+
+{% block title %}start using now!{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" type="text/css" href="{% static 'badger/css/landing.css' %}">
+{% endblock %}
+
+{% block header %}
+    <h1>badger - be awesome and get badges</h1>
+    <h2>do you think people should be awarded badges just because they are awesome? so do we!</h2>
+{% endblock %}
