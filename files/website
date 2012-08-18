@@ -11,6 +11,10 @@ server {
 
     access_log  /home/badger/website.access.log;
 
+    location /static {
+        root /home/badger;
+    }
+
     location / {
         proxy_pass_header Server;
         proxy_set_header Host $http_host;

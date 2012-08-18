@@ -26,7 +26,7 @@ def deploy():
         run('cd %s && pip install -r requirements.txt' % env.REMOTE_CODEBASE_PATH)
 
         run('mkdir -p %s/static' % env.REMOTE_HOME_PATH)
-        run('cd %s/badger && ./manage.py collectstatic' % env.REMOTE_CODEBASE_PATH)
+        run('cd %s/badger && ./manage.py collectstatic --noinput' % env.REMOTE_CODEBASE_PATH)
 
     restart()
 
