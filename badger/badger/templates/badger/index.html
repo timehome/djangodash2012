@@ -1,1 +1,9 @@
-<a href='/auth/login/github'>Login</a>
+{% load static from staticfiles %}
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="{% static 'badger/css/reset.css' %}">
+    </head>
+    <body>
+        <a href='/auth/login/github'>Login</a>
+    </body>
+</html>

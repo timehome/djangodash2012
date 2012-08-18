@@ -1,3 +1,5 @@
+from django.conf import settings
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf.urls import patterns, include, url
 from badger.views import IndexView
 
@@ -11,3 +13,6 @@ urlpatterns = patterns('',
     url(r'^auth/', include('social_auth.urls')),
 
 )
+
+if settings.DEBUG:
+    urlpatterns += staticfiles_urlpatterns()
