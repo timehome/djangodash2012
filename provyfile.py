@@ -40,20 +40,20 @@ class FrontEnd(Role):
                 config_file_directory='/home/badger',
                 pidfile='/home/badger/supervisor.pid',
                 log_folder='/home/badger',
-                user='badger'
+                user='root'
             )
 
             with self.using(DjangoRole) as role:
                 role.restart_supervisor_on_changes = True
 
                 with role.create_site('badger-site') as site:
-                    site.settings_path = '/home/badger/badger/badger.settings'
+                    site.settings_path = '/home/badger/badger/badger'
                     site.pid_file_path = '/home/badger'
                     site.use_supervisor = True
                     site.supervisor_log_path = '/home/badger/'
                     site.threads = 4
                     site.processes = 4
-                    site.user = 'badger'
+                    site.user = 'root'
 
                     # settings that override the website defaults.
                     site.settings = {
