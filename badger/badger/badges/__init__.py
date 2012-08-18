@@ -130,6 +130,7 @@ def count_modifications_by_user(email, directory):
         return result
 
 
+from django.db import transaction
 from achievement.models import Achievement, ContributorAchievement
 from repository.models import Repository, UnknownUser, Contributor
 
@@ -143,22 +144,23 @@ class RepositoryWorker(object):
 
         username, repo_name = re.search('github\.com/([\w_]+)/([\w_]+)', user["repo"]["url"]).groups()
 
-        try:
-            db_repo = Repository.objects.get(git_url=user['repo']['url'])
-        except Repository.DoesNotExist:
-            gh = Github() #login=user['email'], token=user['token'])
-            repo = gh.repos.get(user=username, repo=repo_name)
+        with transaction.commit_on_success():
+            try:
+                db_repo = Repository.objects.get(git_url=user['repo']['url'])
+            except Repository.DoesNotExist:
+                gh = Github() #login=user['email'], token=user['token'])
+                repo = gh.repos.get(user=username, repo=repo_name)
 
-            db_repo = Repository(name=repo.name,
-                    git_url=repo.git_url,
-                    html_url=repo.html_url,
-                    url=repo.url,
-                    language=repo.language)
+                db_repo = Repository(name=repo.name,
+                        git_url=repo.git_url,
+                        html_url=repo.html_url,
+                        url=repo.url,
+                        language=repo.language)
 
-            db_repo.save()
+                db_repo.save()
 
-        temp_dir = tempfile.mkdtemp()
-        processor = RepositoryProcessor(clone_repo(user["repo"]["url"], temp_dir))
-        response = processor.process()
+            temp_dir = tempfile.mkdtemp()
+            processor = RepositoryProcessor(clone_repo(user["repo"]["url"], temp_dir))
+            response = processor.process()
 
 
