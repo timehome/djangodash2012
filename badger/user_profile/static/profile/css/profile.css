@@ -2,9 +2,27 @@ header .container {
     overflow: hidden;
 }
 
+header .logoff {
+    width: 100%;
+    margin-top: 20px;
+}
+
+header .logoff a {
+    display: inline-block;
+    float: right;
+    width: 67px;
+    height: 16px;
+    background: url('../img/signout.png') 0 0 no-repeat;
+    text-indent: -99999px;
+}
+
+header .logoff a:hover {
+    background-position: 0 -20px;
+}
+
 header .photo {
     float: left;
-    margin: 40px 34px 0 40px;
+    margin: 30px 34px 0 40px;
     margin-right: 34px;
 }
 
@@ -17,7 +35,7 @@ header .photo img {
 
 header .profile-data {
     float: left;
-    margin: 26px 80px 26px 0;
+    margin: 16px 80px 26px 0;
     padding: 14px 80px 14px 0;
     border-right: solid 1px #d9d9d9;
 }
@@ -87,7 +105,7 @@ header .profile-data .participation .repos .icon {
 
 header .commits {
     float: left;
-    margin-top: 44px;
+    margin-top: 34px;
     text-align: center;
 }
 
@@ -167,9 +185,109 @@ header .commits .changes .removals {
     margin-right: 10px;
 }
 
+.more-info {
+    overflow: hidden;
+    margin-bottom: 30px;
+}
+
+.more-info .favorites {
+    margin-top: 30px;
+    width: 425px;
+    height: 180px;
+    border-right: solid 1px #d9d9d9;
+    float: left;
+}
+
 .more-info .favorites .icon {
     text-indent: -99999px;
     width: 304px;
     height: 19px;
     background: url('../img/follows.png') no-repeat;
+}
+
+.more-info .favorites > ul {
+    overflow: hidden;
+    margin-top: 26px;
+}
+
+.more-info .favorites > ul > li {
+    float: left;
+    width: 80px;
+    height: 80px;
+    margin-right: 18px;
+}
+
+.more-info .favorites > ul > li:last-child {
+    margin-right: 0;
+}
+
+.more-info .favorites .and-more {
+    float: right;
+    font-size: 16px;
+    font-weight: bold;
+    color: #d9d9d9;
+    margin-right: 50px;
+    margin-top: 10px;
+}
+
+.more-info .invite {
+    margin-top: 30px;
+    margin-left: 40px;
+    float: left;
+}
+
+.more-info .invite .icon {
+    text-indent: -99999px;
+    width: 218px;
+    height: 18px;
+    background: url('../img/invite.png') no-repeat;
+}
+
+.more-info .invite .emails {
+    margin-top: 30px;
+}
+
+.more-info .invite .emails label {
+    display: block;
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 11px;
+}
+
+.more-info .invite .emails .required {
+    color: #cf232a;
+}
+
+.more-info .invite .emails .email-input {
+    border-color: #C6C6C6 #DADADA #EAEAEA;
+    background: #FAFAFA;
+    color: #999;
+    font-size: 1.4em;
+    font-family: inherit;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    vertical-align: middle;
+
+    line-height: 13px;
+    font-size: 12px;
+    width: 376px;
+    padding: 10px;
+    border-style: solid;
+    border-width: 1px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+
+.more-info .invite .submit {
+    margin-top: 10px;
+    text-align: right;
+}
+
+.more-info .invite .submit input {
+    font-size: 11px;
+    font-weight: bold;
+    color: #333;
 }

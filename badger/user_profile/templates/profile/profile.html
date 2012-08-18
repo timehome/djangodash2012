@@ -9,6 +9,11 @@
 {% endblock %}
 
 {% block header %}
+    <div class="logoff">
+        <div class="container">
+            <a href="/auth/logout">logout</a>
+        </div>
+    </div>
     <div class="container">
         <div class="photo">
             <img src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200" />
@@ -83,11 +88,11 @@
             <div class="icon">invite a friend</div>
             <form action="/invite" method="post">
                 <div class="emails">
-                    <label for="e-mails">Invite these people</label>
-                    <input type="text" name="e-mails" id="e-mails" placeholder="semi-colon separated list of e-mails"></input>
+                    <label for="e-mails">Invite these people <span class="required">*</span></label>
+                    <input type="text" name="e-mails" id="e-mails" class="email-input" placeholder="semi-colon separated list of e-mails"></input>
                 </div>
                 <div class="submit">
-                    <input type="submit">SEND</input>
+                    <input type="submit" name="submit" value="SEND" />
                 </div>
             </form>
         </div>
