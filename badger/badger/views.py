@@ -4,4 +4,4 @@ class IndexView(TemplateView):
     template_name = "badger/index.html"
 
 class ProfileView(TemplateView):
-    template_name = "badger/profile.html"
+    template_name = "profile/profile.html"
