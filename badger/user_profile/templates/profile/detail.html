@@ -11,9 +11,10 @@
 {% block header %}
     
     {% if user.is_authenticated %}
-        <div class="logoff">
+        <div class="toolbar">
             <div class="container">
-                <a href="/auth/disconnect/github">logout</a>
+                <a class="my-profile" href="/profile/{{ user.get_profile.slug }}">my profile</a>
+                <a class="logoff" href="/auth/disconnect/github">logout</a>
             </div>
         </div>
     {% endif %}
