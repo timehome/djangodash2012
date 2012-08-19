@@ -14,7 +14,7 @@ class BadgerProfile(models.Model):
       return self.extra_data['name'].split(' ')[0].lower()
 
     def all_repos(self):
-        return self.user.contributor_set.order_by("repository__name")
+        return self.user.contributor_set.annotate(achievements=models.Count('contributorachievement')).order_by('-achievements','repository__name')
 
     def thumb_url(self, size=80):
         email_md5 = hashlib.md5(self.extra_data['email'].lower()).hexdigest()
