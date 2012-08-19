@@ -1,14 +1,14 @@
 Badger
 ======
 
-We have build a achivement web site to prize developers based on his Github
-skills. We compute and analyse all the projects from a user and give to him
-badges related with the skills matched.
+We have built an achivement web site to award developers based on their Github
+skills. We compute and analyze all projects from a user and give him
+badges related to the skills matched.
 
-The project consists in a Django web site that sends data to be processed in
-backend by a Redis queue. The Redis queue process the projects from a given user
-and then put in the database the prizes computed. Then the user can see on
-his profile a list of projects and badges awarded.
+The project consists of a Django web site that sends data to be processed in
+backend by a Redis queue. The Redis queue processes the projects from a given user
+and then puts the prizes computed into the database the prizes computed. Then, the user can see on
+his profile a list of projects and badges awarded on his profile.
 
 The project can be accessed in http://badger.timeho.me/
 
@@ -22,7 +22,7 @@ All source code and images are under [ MIT License ](http://en.wikipedia.org/wik
 Team
 ====
 
-The team responsable for this project are:
+The team responsible for this project is:
 
  - Bernardo Heynemann ( [ @heynemann ](http://twitter.com/heynemann) )
  - Guilherme Souza ( [ @gvideo ](http://twitter.com/gvideo) )
