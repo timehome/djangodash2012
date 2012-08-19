@@ -1,14 +1,14 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-
+import os
 import re
 import json
 import logging
 import tempfile
 import shutil
-from os.path import exists
 import subprocess
+from os.path import exists
 from datetime import datetime
 
 from pygit2 import Repository as GitRepository
@@ -69,10 +69,11 @@ def clone_repo(git_repo_url, directory):
 
 def count_modifications_by_user(email, directory):
     directory = directory.replace('.git/', '')
-    command = """cd %s && /usr/bin/git log --author="%s" --pretty=tformat: --numstat | awk '{ add += $1 ; subs += $2 ; loc += $1 - $2 } END { printf "{\"added_lines\":%%s,\"removed_lines\":%%s,\"total_lines\":%%s}\n",add,subs,loc }'""" % (directory, email)
+    command = """cd %s && /usr/bin/git log --author="%s" --pretty=tformat: --numstat | awk '{ add += $1 ; subs += $2 ; loc += $1 - $2 } END { printf "{\\\"added_lines\\\":%%s,\\\"removed_lines\\\":%%s,\\\"total_lines\\\":%%s}",add,subs,loc }' """ % (directory, email)
     result = {"added_lines":0,"removed_lines":0,"total_lines":0}
     try:
-        result = json.loads(subprocess.check_output(command))
+        (dummy, command_output) = os.popen4(command)
+        result = json.loads(command_output.read())
     finally:
         return result
 
@@ -127,7 +128,7 @@ class RepositoryWorker(object):
                             "repository": db_repo,
                             "added_lines": unknown_contributor.get('added_lines', 0),
                             "removed_lines": unknown_contributor.get('removed_lines', 0),
-                            "total_commits": unknown_contributor.get('total_commits', 0)
+                            "total_commits": unknown_contributor.get('total_lines', 0)
                         }
                     })
 
