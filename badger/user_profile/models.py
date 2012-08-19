@@ -55,6 +55,6 @@ class BadgerProfile(models.Model):
 
     @property
     def other_users(self):
-        return BadgerProfile.objects.order_by('?')[:36]
+        return self.objects.order_by('?').exclude(slug=self.slug)[:36]
 
 
