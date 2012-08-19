@@ -2,21 +2,40 @@ header .container {
     overflow: hidden;
 }
 
-header .logoff {
+header .toolbar {
     width: 100%;
     margin-top: 20px;
 }
 
-header .logoff a {
+header .toolbar .container {
+    text-align: right;
+    font-size: 0;
+}
+
+header .toolbar a.logoff {
     display: inline-block;
-    float: right;
     width: 67px;
     height: 16px;
     background: url('../img/signout.png') 0 0 no-repeat;
+    text-align: left;
     text-indent: -99999px;
 }
 
-header .logoff a:hover {
+header .toolbar a.logoff:hover {
+    background-position: 0 -20px;
+}
+
+header .toolbar a.my-profile {
+    display: inline-block;
+    width: 85px;
+    height: 16px;
+    background: url('../img/myprofile.png') 0 0 no-repeat;
+    text-align: left;
+    text-indent: -99999px;
+    margin-right: 20px;
+}
+
+header .toolbar a.my-profile:hover {
     background-position: 0 -20px;
 }
 
