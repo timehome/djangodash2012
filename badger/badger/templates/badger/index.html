@@ -16,12 +16,14 @@
     <div class="stats">
         <div class="container">
             <div class="whos-using">
-                <ul>
-                    {% for profile in users %}
-                        <li><a href="/profile/{{ profile.slug }}"><img src="{{ profile.thumb_url }}"></a></li>
-                    {% endfor %}
-                </ul>
-                <div class="image"></div>
+                <div class="table-layout">
+                    <ul>
+                        {% for profile in users %}
+                            <li><a href="/profile/{{ profile.slug }}"><img src="{{ profile.thumb_url }}"></a></li>
+                        {% endfor %}
+                    </ul>
+                    <div class="image"></div>
+                </div>
             </div>
             <div class="numbers">
                 <div class="registered">
