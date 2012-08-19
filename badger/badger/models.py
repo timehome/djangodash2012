@@ -2,11 +2,13 @@
 # -*- coding: utf-8 -*-
 
 import logging
+import re
 
 from social_auth.signals import pre_update
 from django.dispatch import receiver
 from social_auth.backends.contrib.github import GithubBackend
 
+from repository.models import Repository, Contributor
 from badger.badges.processor import RepositoryWorker
 
 from pygithub3 import Github
@@ -21,33 +23,48 @@ def user_update_callback(sender, user, response, details, **kwargs):
 
     logging.info(u'Preparing data to put in queue for user [%s]' % response['email'])
 
-    queue_data = {'email':response['email'], 'token': response['access_token']}
-    gh = Github(login=queue_data['email'], token=queue_data['token'])
+    gh = Github(login=user.email, token=response['access_token'])
 
-    res = ResQ()
     for repo in gh.repos.list().all():
-        queue_data['repo'] = {
-            'name': repo.name,
-            'url': repo.url,
-            'git_url': repo.git_url,
-            'html_url': repo.html_url,
-            'language': repo.language
+        try:
+            print repo
+            repo_owner, repo_name = re.search('github.com\/(\w+)\/(\w+)', repo.html_url).groups()
+            add_repository_to_queue(user, repo_owner, repo_name)
+        except:
+            print('cannot be able to process repository %s ...' % repo.html_url)
+
+def add_repository_to_queue(user, repo_owner, repository_name):
+    res = ResQ()
+
+    token = user.get_profile().extra_data['access_token']
+
+    gh = Github(login=user.email, token=token)
+
+    repo = gh.repos.get(repo_owner, repository_name)
+
+    queue_data = {'email': user.email, 'token': token}
+    queue_data['repo'] = {
+        'name': repo.name,
+        'url': repo.url,
+        'git_url': repo.git_url,
+        'html_url': repo.html_url,
+        'language': repo.language
+    }
+
+    db_repo, created = Repository.objects.get_or_create(
+            git_url=repo.git_url, defaults=queue_data['repo'])
+
+    query_filter = {'user': user, 'repository': db_repo}
+    query_filter.update({'defaults': {
+            'user': user,
+            "repository": db_repo
         }
+    })
 
-        db_repo, created = Repository.get_or_create(
-                git_url=repo['git_url'], defaults=queue_data['repo'])
+    as_contributor, created = Contributor.objects.get_or_create(**query_filter)
 
-        query_filter = {'user': user, 'repository': db_repo}
-        query_filter.update({'defaults': {
-                'user': user,
-                "repository": db_repo
-            }
-        })
+    # put a timestamp field in repository model to verify if there is need to 
+    # process again. so only put in queue if is not created and timestamp > x time
 
-        as_contributor, created = Contributor.objects.get_or_create(**query_filter)
-
-        # put a timestamp field in repository model to verify if there is need to 
-        # process again. so only put in queue if is not created and timestamp > x time
-
-        res.enqueue(RepositoryWorker, queue_data)
+    res.enqueue(RepositoryWorker, queue_data)
 

@@ -33,6 +33,7 @@ class RepositoryProcessor(object):
             return self.users[email]
         self.users[email] = []
         for badge_class in initialize_badge_classes():
+            logging.info(u'Initializing badge class [%s] for user [%s]' % (str(badge_class), email))
             self.users[email].append(badge_class(email))
         return self.users[email]
 
