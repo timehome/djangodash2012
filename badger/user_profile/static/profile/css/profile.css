@@ -392,3 +392,7 @@ header .commits .changes .removals {
 .login a:active {
     background-position: 0 -123px;
 }
+
+.social .facebook {
+    margin-bottom: 10px;
+}

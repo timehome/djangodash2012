@@ -47,18 +47,24 @@
                 </div>
             </div>
 
-{% if user.is_authenticated and user.email == object.user.email %}
-<div>
-<a href="https://twitter.com/share" class="twitter-share-button" data-text="Want to get badges for being awesome? http://badger.timeho.me Check my badges:" data-size="large" data-hashtags="djangodash">Tweet</a>
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-</div>
-{% else %}
-<div>
-<a href="https://twitter.com/share" class="twitter-share-button" data-text="Want to get badges for being awesome? http://badger.timeho.me Check this badges:" data-size="large" data-hashtags="djangodash">Tweet</a>
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-</div>
-{% endif %}
-
+            <div class="social">
+                <div class="facebook">
+                    <div class="fb-like" data-href="http://badger.timeho.me/profile/{{ object.get_profile.slug }}" data-send="true" data-width="270" data-show-faces="false"></div>
+                </div>
+                <div class="twitter">
+                     {% if user.is_authenticated and user.email == object.user.email %}
+                    <div>
+                    <a href="https://twitter.com/share" class="twitter-share-button" data-text="Want to get badges for being awesome? http://badger.timeho.me Check my badges:" data-size="large" data-hashtags="djangodash">Tweet</a>
+                    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+                    </div>
+                    {% else %}
+                    <div>
+                    <a href="https://twitter.com/share" class="twitter-share-button" data-text="Want to get badges for being awesome? http://badger.timeho.me Check this badges:" data-size="large" data-hashtags="djangodash">Tweet</a>
+                    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
         </div>
         <div class="commits">
             <div class="number">{{ object.processed_commits|intcomma }}</div>
