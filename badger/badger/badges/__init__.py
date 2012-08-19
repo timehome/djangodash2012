@@ -29,6 +29,7 @@ def initialize_badge_classes():
 
 class Badge(object):
     slug = 'default_badge'
+    description = 'default_description'
 
     def __init__(self, user_email):
         self.user_email = user_email
@@ -42,6 +43,7 @@ class Badge(object):
 
 class NewbieBadge(Badge):
     slug = 'newbie-badger'
+    description = 'this badger is no stranger to git (1 commit in this project)'
 
     def process_commit(self, commit, commit_date):
         if commit.author.email == self.user_email:
@@ -53,6 +55,7 @@ class NewbieBadge(Badge):
 
 class BigBadBadge(Badge):
     slug = 'big-bad-badger'
+    description = "who's afraid of this big bad badger? (100+ commits in this project)"
 
     def __init__(self, *args, **kw):
         super(BigBadBadge, self).__init__(*args, **kw)
@@ -67,6 +70,7 @@ class BigBadBadge(Badge):
 
 class BadgerKahuna(Badge):
     slug = 'badger-kahuna'
+    description = "Looks like we have a big kahuna among us! (300+ commits in this project)"
 
     def __init__(self, *args, **kw):
         super(BigBadBadge, self).__init__(*args, **kw)
