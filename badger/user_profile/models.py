@@ -11,7 +11,7 @@ class BadgerProfile(models.Model):
 
     @property
     def name(self):
-      return self.extra_data['name'].split(' ')[0].lower()
+      return self.extra_data.get('name', '').split(' ')[0].lower()
 
     def all_repos(self):
         return self.user.contributor_set.annotate(achievements=models.Count('contributorachievement')).order_by('-achievements','repository__name')
