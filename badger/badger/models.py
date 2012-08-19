@@ -27,20 +27,23 @@ def user_update_callback(sender, user, response, details, **kwargs):
 
     for repo in gh.repos.list().all():
         try:
-            print repo
             repo_owner, repo_name = re.search('github.com\/(\w+)\/(\w+)', repo.html_url).groups()
-            add_repository_to_queue(user, repo_owner, repo_name)
+            add_repository_to_queue(user, repo_owner, repo_name, repo_object=repo)
         except:
-            print('cannot be able to process repository %s ...' % repo.html_url)
+            logging.info('cannot be able to process repository %s ...' % repo.html_url)
 
-def add_repository_to_queue(user, repo_owner, repository_name):
+def add_repository_to_queue(user, repo_owner, repository_name, repo_object=None):
     res = ResQ()
-
+    repo = None
     token = user.get_profile().extra_data['access_token']
 
-    gh = Github(login=user.email, token=token)
+    if not repo_object:
 
-    repo = gh.repos.get(repo_owner, repository_name)
+        gh = Github(login=user.email, token=token)
+
+        repo = gh.repos.get(repo_owner, repository_name)
+    else:
+        repo = repo_object
 
     queue_data = {'email': user.email, 'token': token}
     queue_data['repo'] = {
