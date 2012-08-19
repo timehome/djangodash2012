@@ -12,8 +12,8 @@ initialize_badge_classes()
 
 urlpatterns = patterns('',
     (r'^$', IndexView.as_view()),
-    url(r'^profile/', include('user_profile.urls')),
-    url(r'^auth/', include('social_auth.urls')),
+    url(r'^profile\/', include('user_profile.urls')),
+    url(r'^auth\/', include('social_auth.urls')),
 
 )
 

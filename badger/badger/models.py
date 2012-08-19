@@ -11,6 +11,7 @@ from pyres import ResQ
 def user_update_callback(sender, user, response, details, **kwargs):
     profile = user.badgerprofile_set.get_or_create()[0]
     profile.extra_data = response
+    profile.slug = response['login']
     profile.save()
 
     user = {'email':response['email'], 'token': response['access_token']}

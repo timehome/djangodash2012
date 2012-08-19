@@ -18,7 +18,7 @@
             <div class="whos-using">
                 <ul>
                     {% for user in users %}
-                        <li><a href="/profile/{{ user.user_id }}"><img src="{{ user.thumb_url }}"></a></li>
+                        <li><a href="/profile/{{ user.slug }}"><img src="{{ user.thumb_url }}"></a></li>
                     {% endfor %}
                 </ul>
                 <div class="image"></div>

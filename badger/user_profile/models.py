@@ -5,6 +5,7 @@ from social_auth.fields import JSONField
 
 class BadgerProfile(models.Model):
     user = models.ForeignKey(User, unique=True)
+    slug = models.SlugField()
 
     extra_data = JSONField(default='{}')
 
