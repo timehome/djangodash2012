@@ -3,11 +3,9 @@
 
 import unittest
 
-from badger.badges import initialize_badge_classes
 from badger.badges.processor import RepositoryWorker
 from repository.models import Repository, UnknownUser, Contributor
 
-initialize_badge_classes()
 
 class BadgeWorkerTestCase(unittest.TestCase):
 
@@ -17,7 +15,10 @@ class BadgeWorkerTestCase(unittest.TestCase):
             "token": "abcdef",
             "repo": {
                 "name": 'insthumbor',
-                "url": "git://github.com/rafaelcaricio/insthumbor.git"
+                "url": "git://github.com/rafaelcaricio/insthumbor.git",
+                "git_url": "git://github.com/rafaelcaricio/insthumbor.git",
+                "html_url": "git://github.com/rafaelcaricio/insthumbor.git",
+                "language": "Python"
             }
         }
         RepositoryWorker.perform(user)

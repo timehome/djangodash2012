@@ -84,47 +84,58 @@ class RepositoryWorker(object):
     def perform(cls, user):
         temp_dir = ''
         try:
-
-            username, repo_name = re.search('github\.com/([\w_]+)/([\w_]+)', user["repo"]["url"]).groups()
-
-            try:
-                db_repo = Repository.objects.get(git_url=user['repo']['url'])
-            except Repository.DoesNotExist:
-                gh = Github() #login=user['email'], token=user['token'])
-                repo = gh.repos.get(user=username, repo=repo_name)
-
-                db_repo = Repository(name=repo.name,
-                        git_url=repo.git_url,
-                        html_url=repo.html_url,
-                        url=repo.url,
-                        language=repo.language)
-
-                db_repo.save()
-
-            temp_dir = tempfile.mkdtemp()
-            processor = RepositoryProcessor(clone_repo(user["repo"]["url"], temp_dir))
-            response = processor.process()
-
             with transaction.commit_on_success():
+
+                repo = user['repo']
+
+                logging.info(u'Initializing process of analysis of the repository [%s]' % repo['git_url'])
+
+                db_repo, created = Repository.objects.get_or_create(
+                        git_url=repo['git_url'],
+                        defaults=dict(
+                            name=repo['name'],
+                            git_url=repo['git_url'],
+                            html_url=repo['html_url'],
+                            url=repo['url'],
+                            language=repo['language']
+                        )
+                )
+
+
+                temp_dir = tempfile.mkdtemp()
+                processor = RepositoryProcessor(clone_repo(repo["git_url"], temp_dir))
+                response = processor.process()
+
                 for unknown_contributor in response:
                     uku, created = UnknownUser.objects.get_or_create(email=unknown_contributor['email'], defaults={
                         "email": unknown_contributor['email']
                     })
 
+                    logging.info(u'Saving contributor [%s] ...' % unknown_contributor['email'])
+
                     db_user = None
+                    query_filter = {'unknown_contributor': uku, 'repository': db_repo}
                     try:
                         db_user = User.objects.get(email=unknown_contributor['email'])
+                        query_filter = {'user': db_use, 'repository': db_repo}
                     except:
                         pass
 
-                    contributor, created = Contributor.objects.get_or_create(unknown_contributor=uku, defaults={
-                        "user": db_user,
-                        "unknown_contributor": uku,
-                        "repository": db_repo,
-                        "added_lines": unknown_contributor['added_lines'],
-                        "removed_lines": unknown_contributor['removed_lines'],
-                        "total_commits": unknown_contributor['total_commits']
+                    query_filter.update({'defaults': {
+                            "user": db_user,
+                            "unknown_contributor": uku,
+                            "repository": db_repo,
+                            "added_lines": unknown_contributor.get('added_lines', 0),
+                            "removed_lines": unknown_contributor.get('removed_lines', 0),
+                            "total_commits": unknown_contributor.get('total_commits', 0)
+                        }
                     })
+
+                    contributor, created = Contributor.objects.get_or_create(**query_filter)
+
+                    if not created and not contributor.unknown_contributor:
+                        contributor.unknown_contributor = uku
+                        contributor.save()
 
                     for badge in unknown_contributor['badges']:
                         ContributorAchievement.objects.get_or_create(achievement=badge['badge_slug'],
@@ -132,6 +143,7 @@ class RepositoryWorker(object):
                             'achievement': badge['badge_slug'],
                             'contributor': contributor
                         })
+                        logging.info('Contributor [%s] has badge [%s]' % (unknown_contributor['email'], badge['badge_slug']))
         finally:
             if exists(temp_dir):
                 shutil.rmtree(temp_dir)
