@@ -40,9 +40,9 @@ def restart():
     with settings(host_string='badger.timeho.me', user='root', warn_only=True):
         run("ps aux | egrep gunicorn | egrep -v egrep | awk '{ print $2 }' | xargs kill -9")
         run("ps aux | egrep pyres-worker | egrep -v egrep | awk '{ print $2 }' | xargs kill -9")
-        for i in range(4):
+        #for i in range(2):
             #run('/etc/init.d/badger-site-80%02d stop && PYTHONPATH=$PYTHONPATH:%s /etc/init.d/badger-site-80%02d start &' % (i, env.REMOTE_CODEBASE_PATH, i))
-            run('WORKERNUM=%d /etc/init.d/pyres-worker start' % i)
+            #run('WORKERNUM=%d /etc/init.d/pyres-worker start' % i)
         run('/etc/init.d/supervisord restart')
         run("ps aux | egrep nginx | egrep -v egrep | awk '{ print $2 }' | xargs kill -9")
         run('/etc/init.d/nginx restart')
