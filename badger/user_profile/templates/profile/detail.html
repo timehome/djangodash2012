@@ -7,6 +7,15 @@
 {% block style %}
     <link rel="stylesheet" type="text/css" href="{% static 'profile/css/profile.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'badger/css/badges.css' %}">
+
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/pt_BR/all.js#xfbml=1&appId=514725658542719";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
 {% endblock %}
 
 {% block header %}
@@ -129,6 +138,12 @@
             <li><h3>seems like you are a lonely badger...</h3></li>
             {% endfor %}
         </ul>
+    </div>
+</div>
+
+<div class="facebook-comments">
+    <div class="container">
+        <div class="fb-comments" data-href="http://badger.timeho.me" data-num-posts="10" data-width="940"></div>
     </div>
 </div>
 
