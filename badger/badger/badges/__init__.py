@@ -55,7 +55,7 @@ class BigNiceBadge(Badge):
     slug = 'big-nice-badger'
 
     def __init__(self, *args, **kw):
-        super(BigBadBadge, self).__init__(*args, **kw)
+        super(BigNiceBadge, self).__init__(*args, **kw)
         self.count = 0
 
     def process_commit(self, commit, commit_date):
@@ -69,7 +69,7 @@ class AlmostBadBadge(Badge):
     slug = 'almost-bad-badger'
 
     def __init__(self, *args, **kw):
-        super(BigBadBadge, self).__init__(*args, **kw)
+        super(AlmostBadBadge, self).__init__(*args, **kw)
         self.count = 0
 
     def process_commit(self, commit, commit_date):
@@ -98,7 +98,7 @@ class BadgerKahuna(Badge):
     slug = 'badger-kahuna'
 
     def __init__(self, *args, **kw):
-        super(BigBadBadge, self).__init__(*args, **kw)
+        super(BadgerKahuna, self).__init__(*args, **kw)
         self.count = 0
 
     def process_commit(self, commit, commit_date):
