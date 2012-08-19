@@ -5,6 +5,7 @@ import re
 
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
 from django.views.generic import TemplateView
 from user_profile.models import BadgerProfile
 from repository.models import Repository
@@ -20,6 +21,10 @@ class IndexView(TemplateView):
         context['users_count'] = BadgerProfile.objects.count()
         context['repository_count'] = Repository.objects.count()
         return context
+
+def logout_view(request):
+    logout(request)
+    return redirect('/')
 
 @login_required
 def new_repository_view(request):
