@@ -361,3 +361,9 @@ header .commits .changes .removals {
 .other-badgers .other-badger:nth-child(10n+10) {
     margin-right: 0px;
 }
+
+.other-badgers h3 {
+    font-size: 16px;
+    font-weight: bold;
+    color: #dedede;
+}
