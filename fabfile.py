@@ -41,6 +41,6 @@ def restart():
         for i in range(4):
             run('/etc/init.d/badger-site-80%02d stop && PYTHONPATH=$PYTHONPATH:%s /etc/init.d/badger-site-80%02d start &' % (i, env.REMOTE_CODEBASE_PATH, i))
             run('WORKERNUM=%d /etc/init.d/pyres-worker start' % i)
-        run("ps aux | egrep nginx | egrep -v egrep | awk '{ print $2 }'")
+        run("ps aux | egrep nginx | egrep -v egrep | awk '{ print $2 }' | xargs kill -9")
         run('/etc/init.d/nginx restart')
 
