@@ -23,3 +23,21 @@
     height: 58px;
     background: url('../img/commitacula.png') no-repeat;
 }
+
+.badger-kahuna {
+    width: 54px;
+    height: 55px;
+    background: url('../img/badger-kahuna.png') no-repeat;
+}
+
+.big-nice-badger {
+    width: 54px;
+    height: 55px;
+    background: url('../img/big-nice-badger.png') no-repeat;
+}
+
+.almost-bad-badger {
+    width: 54px;
+    height: 55px;
+    background: url('../img/almost-bad-badger.png') no-repeat;
+}
