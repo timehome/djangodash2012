@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block header %}
-    
+
     {% if user.is_authenticated %}
         <div class="toolbar">
             <div class="container">
@@ -58,10 +58,20 @@
                         {% for badge in contrib.contributorachievement_set.all %}
                             <li class="{{ badge.achievement }}" title="{{ badge.description }}">
                             </li>
+                        {% empty %}
+                            <li class="no-badge" title="this badger has no achievements in this repo. don't feel bad... they'll come">
+                            </li>
                         {% endfor %}
                     </ul>
                 </li>
             {% endfor %}
+            {% if user.is_authenticated %}
+                <li>
+                    <div class="icon"></div>
+                    <div class="name"><a href="">add repository</a></div>
+                    <div class="add-repo"><form action="/new-repo" method="get"><input type="text" name="repo" placeholder="insert here the repository PUBLIC url. i.e.: git://github.com/timehome/djangodash2012.git" class="repo-name" /><input type="submit" value="send" class="submit-button" /></form></div>
+                </li>
+            {% endif %}
         </ul>
     </div>
 </div>

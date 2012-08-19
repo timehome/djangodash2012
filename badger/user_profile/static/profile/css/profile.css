@@ -205,6 +205,25 @@ header .commits .changes .removals {
     margin-right: 10px;
 }
 
+.badges-section .repos .add-repo form {
+    margin-top: 12px;
+}
+
+.badges-section .repos .add-repo .repo-name {
+    border: solid 1px #333;
+    border-radius: 3px;
+    width: 510px;
+    height: 30px;
+    padding: 0 10px;
+}
+
+.badges-section .repos .add-repo .submit-button {
+    width: 80px;
+    height: 25px;
+    margin-left: 10px;
+    padding-top: 5px;
+}
+
 .more-info {
     overflow: hidden;
     margin-bottom: 30px;

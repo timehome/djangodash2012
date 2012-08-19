@@ -1,3 +1,10 @@
+.no-badge {
+    width: 362px;
+    height: 26px;
+    margin-top: 16px;
+    background: url('../../profile/img/whysosad.png') no-repeat;
+}
+
 .newbie-badger {
     width: 56px;
     height: 58px;
