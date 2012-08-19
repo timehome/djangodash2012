@@ -16,6 +16,8 @@ from pygit2 import GIT_SORT_TIME
 from pygithub3 import Github
 from django.db import transaction
 
+from django.contrib.auth.models import User
+
 from achievement.models import ContributorAchievement
 from repository.models import Repository, UnknownUser, Contributor
 
@@ -53,6 +55,7 @@ class RepositoryProcessor(object):
                 else:
                     user.update(badge.update_data())
             user.update(count_modifications_by_user(user_email, self.repo.path))
+            print user
         return result
 
 
@@ -119,7 +122,7 @@ class RepositoryWorker(object):
                     query_filter = {'unknown_contributor': uku, 'repository': db_repo}
                     try:
                         db_user = User.objects.get(email=unknown_contributor['email'])
-                        query_filter = {'user': db_use, 'repository': db_repo}
+                        query_filter = {'user': db_user, 'repository': db_repo}
                     except:
                         pass
 
