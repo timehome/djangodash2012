@@ -215,6 +215,7 @@ header .commits .changes .removals {
     width: 510px;
     height: 30px;
     padding: 0 10px;
+    margin-left: -40px;
 }
 
 .badges-section .repos .add-repo .submit-button {
