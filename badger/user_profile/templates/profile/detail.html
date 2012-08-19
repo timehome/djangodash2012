@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block header %}
-    
+
     {% if user.is_authenticated %}
         <div class="toolbar">
             <div class="container">
@@ -72,11 +72,13 @@
                     </li>
                 </ul>
             </li>
+            {% if user.is_authenticated %}
             <li>
                 <div class="icon"></div>
                 <div class="name"><a href="">add repository</a></div>
                 <div class="add-repo"><form action="/new-repo" method="get"><input type="text" name="repo" placeholder="insert here the repository PUBLIC url. i.e.: git://github.com/timehome/djangodash2012.git" class="repo-name" /><input type="submit" value="send" class="submit-button" /></form></div>
             </li>
+            {% endif %}
 
         </ul>
     </div>
