@@ -53,4 +53,8 @@ class BadgerProfile(models.Model):
             badges += len(contrib.contributorachievement_set.all())
         return badges
 
+    @property
+    def other_users(self):
+        return BadgerProfile.objects.order_by('?')[:36]
+
 
