@@ -1,5 +1,5 @@
 run:
-	@cd badger && ./manage.py runserver 0.0.0.0:8000
+	@cd badger && DJANGO_SETTINGS_MODULE=badger.settings_local ./manage.py runserver 0.0.0.0:8000
 
 db:
 	@mysql -u root -e 'CREATE DATABASE IF NOT EXISTS badger'
