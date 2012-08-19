@@ -53,7 +53,7 @@
             {% for contrib in object.user.contributor_set.all %}
                 <li>
                     <div class="icon"></div>
-                    <div class="name"><a href="{{ contrib.repository.url }}">{{ contrib.repository.name }}</a></div>
+                    <div class="name"><a href="{{ contrib.repository.html_url }}">{{ contrib.repository.name }}</a></div>
                     <ul class="badge-list">
                         {% for badge in contrib.contributorachievement_set.all %}
                             <li class="{{ badge.achievement }}" title="{{ badge.description }}">
