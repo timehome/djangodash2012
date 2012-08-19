@@ -21,4 +21,36 @@ class BadgerProfile(models.Model):
     def thumb_url_200_pixels(self):
         return self.thumb_url(200)
 
+    @property
+    def processed_commits(self):
+        commits = 0
+        for contrib in self.user.contributor_set.all():
+            commits += contrib.total_commits
+        return commits
+
+    @property
+    def added_lines(self):
+        lines = 0
+        for contrib in self.user.contributor_set.all():
+            lines += contrib.added_lines
+        return lines
+
+    @property
+    def removed_lines(self):
+        lines = 0
+        for contrib in self.user.contributor_set.all():
+            lines += contrib.removed_lines
+        return lines
+
+    @property
+    def total_repos(self):
+        return len(self.user.contributor_set.all())
+
+    @property
+    def total_badges(self):
+        badges = 0
+        for contrib in self.user.contributor_set.all():
+            badges += len(contrib.contributorachievement_set.all())
+        return badges
+
 
