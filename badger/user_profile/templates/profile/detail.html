@@ -118,4 +118,14 @@
         </ul>
     </div>
 </div>
+
+
+{% if not user.is_authenticated %}
+<div class="login">
+    <div class="container">
+        <a href="/auth/login/github">login with your github account</a>
+    </div>
+</div>
+{% endif %}
+
 {% endblock %}
