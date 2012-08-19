@@ -1,5 +1,6 @@
 {% extends "badger/master.html" %}
 {% load static from staticfiles %}
+{% load humanize %}
 
 {% block title %}my badges{% endblock %}
 
@@ -29,19 +30,19 @@
             <div class="participation">
                 <div class="badges">
                     <div class="icon">number of badges</div>
-                    <div class="data">{{ object.total_badges }}</div>
+                    <div class="data">{{ object.total_badges|intcomma }}</div>
                 </div>
                 <div class="repos">
                     <div class="icon">number of repositories</div>
-                    <div class="data">{{ object.total_repos }}</div>
+                    <div class="data">{{ object.total_repos|intcomma }}</div>
                 </div>
 
             </div>
         </div>
         <div class="commits">
-            <div class="number">{{ object.processed_commits }}</div>
+            <div class="number">{{ object.processed_commits|intcomma }}</div>
             <div class="label">commits</div>
-            <div class="changes"><span class="additions">+{{ object.added_lines }}</span> <span class="removals">-{{ object.removed_lines }}</span></div>
+            <div class="changes"><span class="additions">+{{ object.added_lines|intcomma }}</span> <span class="removals">-{{ object.removed_lines|intcomma }}</span></div>
         </div>
     </div>
 {% endblock %}
