@@ -17,12 +17,14 @@ def import_class(name):
 
 def initialize_badge_classes():
     from django.conf import settings
+    BADGES_CLASSES = []
     BADGES_CLASSES.append(CommitCount)
     for badge_class_name in getattr(settings, 'BADGES_ENABLED', []):
         try:
             BADGES_CLASSES.append(import_class(badge_class_name))
         except Exception, e:
             logging.info(u"Coun't import badge class (%s) the error was: %s" % (badge_class_name, str(e)))
+    return BADGES_CLASSES
 
 
 class Badge(object):
@@ -39,7 +41,7 @@ class Badge(object):
 
 
 class NewbieBadge(Badge):
-    slug = 'newbie_badge'
+    slug = 'newbie-badger'
 
     def process_commit(self, commit, commit_date):
         if commit.author.email == self.user_email:
@@ -50,7 +52,7 @@ class NewbieBadge(Badge):
 
 
 class BigBadBadge(Badge):
-    slug = 'bigbad_badge'
+    slug = 'big-bad-badger'
 
     def __init__(self, *args, **kw):
         super(BigBadBadge, self).__init__(*args, **kw)

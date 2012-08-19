@@ -8,6 +8,7 @@ class BadgerProfile(models.Model):
 
     extra_data = JSONField(default='{}')
 
+    @property
     def name(self):
       return self.extra_data['name'].split(' ')[0].lower()
 
@@ -15,6 +16,7 @@ class BadgerProfile(models.Model):
         email_md5 = hashlib.md5(self.extra_data['email'].lower()).hexdigest()
         return 'http://www.gravatar.com/avatar/%s?s=%s' % (email_md5, size)
 
+    @property
     def thumb_url_200_pixels(self):
         return self.thumb_url(200)
 

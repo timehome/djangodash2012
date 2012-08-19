@@ -19,7 +19,7 @@ from django.db import transaction
 from achievement.models import ContributorAchievement
 from repository.models import Repository, UnknownUser, Contributor
 
-from badger.badges import Badge, BADGES_CLASSES
+from badger.badges import Badge, initialize_badge_classes
 
 
 class RepositoryProcessor(object):
@@ -32,7 +32,7 @@ class RepositoryProcessor(object):
         if email in self.users:
             return self.users[email]
         self.users[email] = []
-        for badge_class in BADGES_CLASSES:
+        for badge_class in initialize_badge_classes():
             self.users[email].append(badge_class(email))
         return self.users[email]
 
@@ -78,9 +78,11 @@ def count_modifications_by_user(email, directory):
 
 class RepositoryWorker(object):
 
+    queue = 'repo_queue'
+
     @classmethod
     def perform(cls, user):
-        temp_dir = None
+        temp_dir = ''
         try:
 
             username, repo_name = re.search('github\.com/([\w_]+)/([\w_]+)', user["repo"]["url"]).groups()
