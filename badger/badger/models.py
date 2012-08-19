@@ -15,6 +15,12 @@ from pygithub3 import Github
 from pyres import ResQ
 
 @receiver(pre_update, sender=GithubBackend)
+def user_update_contribuitions_that_already_exist(sender, user, response, details, **kwargs):
+    for cont in Contributor.objects.filter(unknown_contributor__email=user.email):
+        cont.user = user
+        cont.save()
+
+@receiver(pre_update, sender=GithubBackend)
 def user_update_callback(sender, user, response, details, **kwargs):
     profile = user.badgerprofile_set.get_or_create()[0]
     profile.extra_data = response
