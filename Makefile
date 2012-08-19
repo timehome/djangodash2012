@@ -18,4 +18,4 @@ run_worker:
 	@cd badger && PYTHONPATH=.:$$PYTHONPATH DJANGO_SETTINGS_MODULE=badger.settings pyres_worker repo_queue
 
 run_worker_prod:
-	@cd /home/badger/badger/badger && PYTHONPATH=/home/badger/badger:$$PYTHONPATH DJANGO_SETTINGS_MODULE=badger.settings pyres_worker -f /home/badger/worker.log repo_queue
+	@cd /home/badger/badger/badger && PYTHONPATH=/home/badger/badger/badger:$$PYTHONPATH DJANGO_SETTINGS_MODULE=badger.settings pyres_worker -f /home/badger/worker.log repo_queue

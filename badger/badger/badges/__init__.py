@@ -65,6 +65,21 @@ class BigBadBadge(Badge):
     def award_this(self):
         return self.count >= 100
 
+class BadgerKahuna(Badge):
+    slug = 'badger-kahuna'
+
+    def __init__(self, *args, **kw):
+        super(BigBadBadge, self).__init__(*args, **kw)
+        self.count = 0
+
+    def process_commit(self, commit, commit_date):
+        if commit.author.email == self.user_email:
+            self.count += 1
+
+    def award_this(self):
+        return self.count >= 300
+
+
 class CommitCount:
 
     def __init__(self, email, *args, **kw):
