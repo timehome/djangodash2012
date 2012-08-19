@@ -50,7 +50,7 @@
 <div class="badges-section">
     <div class="container">
         <ul class="repos">
-            {% for contrib in object.user.contributor_set.all %}
+            {% for contrib in object.all_repos %}
                 <li>
                     <div class="icon"></div>
                     <div class="name"><a href="{{ contrib.repository.html_url }}">{{ contrib.repository.name }}</a></div>
