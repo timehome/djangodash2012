@@ -65,11 +65,12 @@ class CantCloneRepositoryException(Exception):
 
 
 def clone_repo(git_repo_url, directory):
-    if subprocess.call(['git', 'clone', git_repo_url, directory]):
-        raise CantCloneRepositoryException()
-    else:
-        logging.info('Cloned repository %s into %s ...' % (git_repo_url, directory))
-        return directory
+    command = 'git clone %s %s' % (git_repo_url, directory)
+
+    logging.info('$$$$$$$$$$$$$$$$$$ trying to clone %s $$$$$$$$$$$$$$$' % git_repo_url)
+    (dummy, command_output) = os.popen4(command)
+    result = command_output.read()
+    logging.info(result)
 
 def count_modifications_by_user(email, directory):
     directory = directory.replace('.git/', '')
