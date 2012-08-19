@@ -38,6 +38,7 @@ def db():
 
 def restart():
     with settings(host_string='badger.timeho.me', user='root', warn_only=True):
+        run("ps aux | egrep gunicorn | egrep -v egrep | awk '{ print $2 }' | xargs kill -9")
         run('/etc/init.d/pyres-worker stop')
         for i in range(4):
             #run('/etc/init.d/badger-site-80%02d stop && PYTHONPATH=$PYTHONPATH:%s /etc/init.d/badger-site-80%02d start &' % (i, env.REMOTE_CODEBASE_PATH, i))

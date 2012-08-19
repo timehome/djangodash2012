@@ -105,16 +105,16 @@
     </div>
 </div>
 
-{% if object.other_users %}
 <div class="other-badgers">
     <div class="container">
         <div class="icon">other badgers</div>
         <ul>
             {% for other_badger in object.other_users %}
             <li class="other-badger"><a href="/user/{{ other_badger.slug }}"><img src="{{ other_badger.thumb_url }}"></a></li>
+            {% empty %}
+            <li><h3>seems like you are a lonely badger...</h3></li>
             {% endfor %}
         </ul>
     </div>
 </div>
-{% endif %}
 {% endblock %}
