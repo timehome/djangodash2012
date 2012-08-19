@@ -185,5 +185,7 @@ GITHUB_EXTENDED_PERMISSIONS = []
 BADGES_ENABLED = [
     'badger.badges.NewbieBadge',
     'badger.badges.BigBadBadge',
+    'badger.badges.AlmostBadBadge',
+    'badger.badges.BigNiceBadge'
 ]
 
