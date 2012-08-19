@@ -52,6 +52,36 @@ class NewbieBadge(Badge):
     def award_this(self):
         return self.has_this_badge
 
+class BigNiceBadge(Badge):
+    slug = 'big-nice-badger'
+    description = "You're almost there. Keep up the good work! (30+ commits in this project)"
+
+    def __init__(self, *args, **kw):
+        super(BigBadBadge, self).__init__(*args, **kw)
+        self.count = 0
+
+    def process_commit(self, commit, commit_date):
+        if commit.author.email == self.user_email:
+            self.count += 1
+
+    def award_this(self):
+        return self.count >= 30
+
+class AlmostBadBadge(Badge):
+    slug = 'almost-bad-badger'
+    description = "Wow! Do that again and wait for rainbows and unicorns. (50+ commits in this project)"
+
+    def __init__(self, *args, **kw):
+        super(BigBadBadge, self).__init__(*args, **kw)
+        self.count = 0
+
+    def process_commit(self, commit, commit_date):
+        if commit.author.email == self.user_email:
+            self.count += 1
+
+    def award_this(self):
+        return self.count >= 50
+
 
 class BigBadBadge(Badge):
     slug = 'big-bad-badger'
