@@ -7,7 +7,7 @@ badges related to the skills matched.
 
 The project consists of a Django web site that sends data to be processed in
 backend by a Redis queue. The Redis queue processes the projects from a given user
-and then puts the prizes computed into the database the prizes computed. Then, the user can see on
+and then puts the prizes computed into the database. Then, the user can see on
 his profile a list of projects and badges awarded on his profile.
 
 The project can be accessed in http://badger.timeho.me/
