@@ -27,6 +27,6 @@ def new_repository_view(request):
         repository_url = request.REQUEST['repo']
         repo_owner, repo_name = re.search('github.com\/(\w+)\/(\w+)', repository_url).groups()
         add_repository_to_queue(request.user, repo_owner, repo_name)
-    redirect('/')
+    return redirect('/')
 
 
