@@ -16,6 +16,8 @@
                 <a href="/auth/disconnect/github">logout</a>
             </div>
         </div>
+    {% else %}
+        <div>{{ user.slug }}</div>
     {% endif %}
     <div class="container">
         <div class="photo">

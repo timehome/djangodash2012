@@ -17,8 +17,8 @@
         <div class="container">
             <div class="whos-using">
                 <ul>
-                    {% for user in users %}
-                        <li><a href="/profile/{{ user.slug }}"><img src="{{ user.thumb_url }}"></a></li>
+                    {% for profile in users %}
+                        <li><a href="/profile/{{ profile.slug }}"><img src="{{ profile.thumb_url }}"></a></li>
                     {% endfor %}
                 </ul>
                 <div class="image"></div>
@@ -36,9 +36,17 @@
         </div>
     </div>
 
-    <div class="login">
-        <div class="container">
-            <a href="/auth/login/github">login with your github account</a>
+    {% if user.is_authenticated %}
+        <div class="logged_in">
+            <div class="container">
+                <a href="/profile/{{ user.get_profile.slug }}">Check your awesome badges!</a>
+            </div>
         </div>
-    </div>
+    {% else %}
+        <div class="login">
+            <div class="container">
+                <a href="/auth/login/github">login with your github account</a>
+            </div>
+        </div>
+    {% endif %}
 {% endblock %}

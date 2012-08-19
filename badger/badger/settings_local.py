@@ -134,7 +134,10 @@ LOGIN_REDIRECT_URL = '/'
 LOGIN_ERROR_URL    = '/'
 SOCIAL_AUTH_SESSION_EXPIRATION = False
 
+AUTH_PROFILE_MODULE = 'user_profile.badgerprofile'
+
 TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.contrib.auth.context_processors.auth',
     'social_auth.context_processors.social_auth_by_name_backends',
     'social_auth.context_processors.social_auth_backends',
     'social_auth.context_processors.social_auth_by_type_backends',

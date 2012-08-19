@@ -120,3 +120,11 @@ header > h2 {
 .login a:active {
     background-position: 0 -123px;
 }
+
+.logged_in a {
+    color: #BBBBBB;
+    display: block;
+    padding: 30px 0;
+    text-align: center;
+    text-decoration: none;
+}
