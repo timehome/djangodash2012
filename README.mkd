@@ -16,7 +16,7 @@ The project can be accessed in http://badger.timeho.me/
 License
 =======
 
-All source code and images are under MIT License. http://en.wikipedia.org/wiki/MIT_License
+All source code and images are under [ MIT License ](http://en.wikipedia.org/wiki/MIT_License).
 
 
 Team
@@ -24,8 +24,8 @@ Team
 
 The team responsable for this project are:
 
- - Bernardo Heynemann ( @heynemann )
- - Guilherme Souza ( @gvideo )
- - Rafael Caricio ( @rafaelcaricio )
+ - Bernardo Heynemann ( [ @heynemann ](http://twitter.com/heynemann) )
+ - Guilherme Souza ( [ @gvideo ](http://twitter.com/gvideo) )
+ - Rafael Caricio ( [ @rafaelcaricio ](http://twitter.com/rafaelcaricio) )
 
-also known as *TimeHome*.
+also known as [ *TimeHome* ] (http://djangodash.com/teams/c3/timehome/).
