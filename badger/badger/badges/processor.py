@@ -72,6 +72,8 @@ def clone_repo(git_repo_url, directory):
     result = command_output.read()
     logging.info(result)
 
+    return directory
+
 def count_modifications_by_user(email, directory):
     directory = directory.replace('.git/', '')
     command = """cd %s && /usr/bin/git log --author="%s" --pretty=tformat: --numstat | awk '{ add += $1 ; subs += $2 ; loc += $1 - $2 } END { printf "{\\\"added_lines\\\":%%s,\\\"removed_lines\\\":%%s,\\\"total_lines\\\":%%s}",add,subs,loc }' """ % (directory, email)
