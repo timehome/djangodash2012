@@ -1,0 +1,31 @@
+Badger
+======
+
+We have build a achivement web site to prize developers based on his Github
+skills. We compute and analyse all the projects from a user and give to him
+badges related with the skills matched.
+
+The project consists in a Django web site that sends data to be processed in
+backend by a Redis queue. The Redis queue process the projects from a given user
+and then put in the database the prizes computed. Then the user can see on
+his profile a list of projects and badges awarded.
+
+The project can be accessed in http://badger.timeho.me/
+
+
+License
+=======
+
+All source code and images are under MIT License. http://en.wikipedia.org/wiki/MIT_License
+
+
+Team
+====
+
+The team responsable for this project are:
+
+ - Bernardo Heynemann ( @heynemann )
+ - Guilherme Souza ( @gvideo )
+ - Rafael Caricio ( @rafaelcaricio )
+
+also known as *TimeHome*.
