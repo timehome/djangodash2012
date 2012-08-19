@@ -36,8 +36,20 @@
                     <div class="icon">number of repositories</div>
                     <div class="data">{{ object.total_repos|intcomma }}</div>
                 </div>
-
             </div>
+
+{% if user.is_authenticated %}
+<div>
+<a href="https://twitter.com/share" class="twitter-share-button" data-text="Want to get badges for being awesome? http://badger.timeho.me Check my badges:" data-size="large" data-hashtags="djangodash">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+</div>
+{% else %}
+<div>
+<a href="https://twitter.com/share" class="twitter-share-button" data-text="Want to get badges for being awesome? http://badger.timeho.me Check this badges:" data-size="large" data-hashtags="djangodash">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+</div>
+{% endif %}
+
         </div>
         <div class="commits">
             <div class="number">{{ object.processed_commits|intcomma }}</div>
@@ -48,6 +60,7 @@
 {% endblock %}
 
 {% block contents %}
+
 <div class="badges-section">
     <div class="container">
         <ul class="repos">
