@@ -41,7 +41,7 @@ header .toolbar a.my-profile:hover {
 
 header .photo {
     float: left;
-    margin: 30px 34px 0 40px;
+    margin: 30px 34px 0 0;
     margin-right: 34px;
 }
 

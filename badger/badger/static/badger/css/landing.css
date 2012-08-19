@@ -28,22 +28,34 @@ header > h2 {
 
 .stats .whos-using {
     float: left;
+    display: table;
     width: 352px;
+    height: 255px;
     padding-bottom: 19px;
     margin: 20px 0;
     border-right: solid 1px #888;
 }
 
+.stats .whos-using .table-layout {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+}
+
 .stats .whos-using ul {
     overflow: hidden;
-    margin-top: 30px;
-    width: 260px;
+    display: inline-block;
+    margin: 30px auto 0 auto;
 }
 
 .stats .whos-using li {
     float: left;
     margin-right: 20px;
     margin-bottom: 20px;
+}
+
+.stats .whos-using li:last-child {
+    margin-right: 0;
 }
 
 .stats .whos-using li:nth-child(4n+4) {
@@ -60,7 +72,7 @@ header > h2 {
     background: url('../img/whosusing.png') 0 0 no-repeat;
     width: 218px;
     height: 19px;
-    margin-left: 18px;
+    margin: 0 auto;
 }
 
 .stats .numbers {
