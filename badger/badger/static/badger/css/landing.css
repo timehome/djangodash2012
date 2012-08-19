@@ -58,7 +58,7 @@ header > h2 {
     margin-right: 0;
 }
 
-.stats .whos-using li:nth-child(4n+4) {
+.stats .whos-using li:nth-child(5n+5) {
     margin-right: 0;
 }
 
