@@ -330,3 +330,34 @@ header .commits .changes .removals {
     font-weight: bold;
     color: #333;
 }
+
+.other-badgers {
+    overflow: hidden;
+    margin-bottom: 30px;
+}
+
+.other-badgers .container {
+    border-top: solid 2px #d9d9d9;
+}
+
+.other-badgers .icon {
+    background: url('../img/otherbadgers.png') no-repeat;
+    width: 216px;
+    height: 19px;
+    text-indent: -99999px;
+    margin: 20px 0;
+}
+
+.other-badgers ul {
+    margin-left: 20px;
+}
+
+.other-badgers .other-badger {
+    float: left;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.other-badgers .other-badger:nth-child(10n+10) {
+    margin-right: 0px;
+}
