@@ -36,17 +36,9 @@
         </div>
     </div>
 
-    {% if user.is_authenticated %}
-        <div class="logged_in">
-            <div class="container">
-                <a href="/profile/{{ user.get_profile.slug }}">Check your awesome badges!</a>
-            </div>
+    <div class="login">
+        <div class="container">
+            <a href="/auth/login/github">login with your github account</a>
         </div>
-    {% else %}
-        <div class="login">
-            <div class="container">
-                <a href="/auth/login/github">login with your github account</a>
-            </div>
-        </div>
-    {% endif %}
+    </div>
 {% endblock %}
