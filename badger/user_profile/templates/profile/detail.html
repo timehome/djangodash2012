@@ -50,28 +50,18 @@
 <div class="badges-section">
     <div class="container">
         <ul class="repos">
-            <li>
-                <div class="icon"></div>
-                <div class="name"><a href="">thumbor</a></div>
-                <ul class="badge-list">
-                    <li class="newbie-badger" title="this badger is no stranger to git (1 commit in this project)">
-                    </li>
-                    <li class="big-bad-badger" title="who's afraid of this big bad badger? (100+ commits in this project)">
-                    </li>
-                    <li class="commitacula" title="this badger is a creature of the night (most commits in the evening)">
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <div class="icon"></div>
-                <div class="name"><a href="">pyvows</a></div>
-                <ul class="badge-list">
-                    <li class="newbie-badger" title="this badger is no stranger to git (1 commit in this project)">
-                    </li>
-                    <li class="commitacula" title="this badger is a creature of the night (most commits in the evening)">
-                    </li>
-                </ul>
-            </li>
+            {% for contrib in object.user.contributor_set.all %}
+                <li>
+                    <div class="icon"></div>
+                    <div class="name"><a href="{{ contrib.repository.url }}">{{ contrib.repository.name }}</a></div>
+                    <ul class="badge-list">
+                        {% for badge in contrib.contributorachievement_set.all %}
+                            <li class="{{ badge.achievement }}" title="{{ badge.description }}">
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            {% endfor %}
         </ul>
     </div>
 </div>

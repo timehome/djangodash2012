@@ -7,5 +7,6 @@ from repository.models import Contributor
 
 class ContributorAchievement(models.Model):
     achievement = models.CharField(max_length=100, db_index=True)
+    description = models.TextField()
     contributor = models.ForeignKey(Contributor)
 
