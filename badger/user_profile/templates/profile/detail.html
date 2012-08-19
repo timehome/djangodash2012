@@ -110,7 +110,7 @@
         <div class="icon">other badgers</div>
         <ul>
             {% for other_badger in object.other_users %}
-            <li class="other-badger"><a href="/user/{{ other_badger.slug }}"><img src="{{ other_badger.thumb_url }}"></a></li>
+            <li class="other-badger"><a href="/profile/{{ other_badger.slug }}"><img src="{{ other_badger.thumb_url }}"></a></li>
             {% empty %}
             <li><h3>seems like you are a lonely badger...</h3></li>
             {% endfor %}
