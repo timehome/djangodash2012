@@ -132,11 +132,16 @@ class RepositoryWorker(object):
                             "repository": db_repo,
                             "added_lines": unknown_contributor.get('added_lines', 0),
                             "removed_lines": unknown_contributor.get('removed_lines', 0),
-                            "total_commits": unknown_contributor.get('total_lines', 0)
+                            "total_commits": unknown_contributor.get('total_commits', 0)
                         }
                     })
 
                     contributor, created = Contributor.objects.get_or_create(**query_filter)
+                    if not created:
+                        contributor.added_lines = unknown_contributor.get('added_lines', 0)
+                        contributor.removed_lines = unknown_contributor.get('removed_lines', 0)
+                        contributor.total_commits = unknown_contributor.get('total_commits', 0)
+                        contributor.save()
 
                     if not created and not contributor.unknown_contributor:
                         contributor.unknown_contributor = uku
