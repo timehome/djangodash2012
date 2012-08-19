@@ -54,8 +54,9 @@ header .photo img {
 
 header .profile-data {
     float: left;
-    margin: 16px 80px 26px 0;
-    padding: 14px 80px 14px 0;
+    margin: 16px 40px 26px 0;
+    width: 458px;
+    padding: 14px 40px 14px 0;
     border-right: solid 1px #d9d9d9;
 }
 

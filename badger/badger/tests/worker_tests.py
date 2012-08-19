@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import json
 import unittest
 
-from badger.badges.processor import RepositoryWorker
+from badger.badges.processor import RepositoryWorker, count_modifications_by_user
 from repository.models import Repository, UnknownUser, Contributor
 
 
@@ -26,5 +27,5 @@ class BadgeWorkerTestCase(unittest.TestCase):
         self.assertEqual(Repository.objects.count(), 1)
         self.assertEqual(UnknownUser.objects.count(), 3)
         self.assertEqual(Contributor.objects.count(), 3)
-
+        self.assertTrue(Contributor.objects.all()[0].total_commits > 0)
 
